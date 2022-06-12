@@ -1,0 +1,41 @@
+:root {
+  font-size: 100%;
+  --btn-primary-color: white;
+  --btn-primary-bg-color: black;
+  --btn-secondary-color: black;
+  --btn-secondary-bg-color: white;
+  --btn-disable-color: lightgray;
+  --btn-disable-bg-color: white;
+  --btn-icon-color: black;
+  --btn-icon-error-color: red;
+  --btn-icon-disable-color: lightgray;
+  --btn-filled-color: white;
+  --btn-filled-bg-color: black;
+  --btn-filled-error-color: white;
+  --btn-filled-error-bg-color: red;
+  --btn-filled-disable-color: white;
+  --btn-filled-disable-bg-color: lightgray;
+
+  --shadow-sm: 0 0 8px rgba(69, 69, 69, 0.3);
+  --shadow-md: 0 0 12px rgba(69, 69, 69, 0.5);
+  --border-radius-sm: 8px;
+  --border-radius-md: 16px;
+  --font-small-bold: bold 0.875rem 'Poppins';
+  --font-small-regular: 0.875rem 'Poppins';
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.appContainer {
+  max-width: 750px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.appTitle {
+  text-align: center;
+  margin-bottom: 5rem;
+}

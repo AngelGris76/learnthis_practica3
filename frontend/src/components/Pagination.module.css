@@ -1,0 +1,21 @@
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.selectContainer {
+  width: 37%;
+}
+
+.selectDescriptor {
+  margin-left: 0.75rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 30%;
+}

@@ -1,0 +1,50 @@
+.userContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid lightgray;
+  border-radius: var(--border-radius-sm);
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 60%;
+}
+
+.name {
+  margin: 0.5rem 0;
+}
+
+.mail {
+  margin: 0;
+}
+
+.status {
+  width: 20%;
+
+  text-align: center;
+}
+
+.role {
+  width: 20%;
+
+  text-align: center;
+}
+
+.roleTeacher {
+  background-color: blue;
+}
+
+.roleStudent {
+  background-color: red;
+}
+
+.roleOther {
+  background-color: purple;
+}

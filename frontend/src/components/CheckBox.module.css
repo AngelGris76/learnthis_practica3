@@ -1,0 +1,28 @@
+.inputContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.input:focus,
+.input:hover {
+  outline: none;
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.input:checked {
+  background-image: url('/icons/check.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}

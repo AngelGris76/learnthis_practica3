@@ -1,0 +1,22 @@
+import User from './User';
+
+const UserGrid = ({ users }) => {
+  if (!users) {
+    return <p>Error al cargar los datos</p>;
+  }
+  if (!users.length) {
+    return <p>No hay registros</p>;
+  }
+  const usersRendered = users.map(({ id, name, userName, isActive, role }) => (
+    <User
+      key={id}
+      name={name}
+      userName={userName}
+      isActive={isActive}
+      role={role}
+    />
+  ));
+  return <div>{usersRendered}</div>;
+};
+
+export default UserGrid;

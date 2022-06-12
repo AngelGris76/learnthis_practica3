@@ -1,0 +1,22 @@
+.formContainer {
+  position: relative;
+  padding: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.inputs,
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputs {
+  align-items: flex-start;
+}
+
+.controls {
+  align-items: center;
+  margin-top: 1.5rem;
+}

@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Sebastian Smuraglia",
+      "userName": "sebassmu",
+      "isActive": true,
+      "role": "student"
+    },
+    {
+      "id": 2,
+      "name": "Pablo Castellanos",
+      "userName": "pcastellanos",
+      "isActive": false,
+      "role": "teacher"
+    },
+    {
+      "id": 3,
+      "name": "Jose Miguel Fernandez",
+      "userName": "josyto",
+      "isActive": true,
+      "role": "teacher"
+    },
+    {
+      "id": 4,
+      "name": "Fernando Yañez",
+      "userName": "ferchuariel",
+      "isActive": false,
+      "role": "other"
+    },
+    {
+      "id": 5,
+      "name": "Pablo Ali",
+      "userName": "pabloali",
+      "isActive": true,
+      "role": "other"
+    },
+    {
+      "id": 6,
+      "name": "Valentín Smuraglia",
+      "userName": "valenariel",
+      "isActive": true,
+      "role": "student"
+    }
+  ]
+}
