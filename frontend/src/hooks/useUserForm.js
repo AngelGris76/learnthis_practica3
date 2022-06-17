@@ -3,16 +3,24 @@ import INITIAL_ERROR_VALUES from '../constants/initialErrorValues';
 import INITIAL_USER_DATA from '../constants/initialUserData';
 import findUserById from '../libs/api/findUserById';
 
-const getUserDataById = async (id) => {
+const getUserDataById = async (id, setUserData, setUserNameField) => {
   try {
-    return await findUserById(id);
-  } catch (err) {}
+    const userData = await findUserById(id);
+
+    if (userData) {
+      setUserData(userData);
+      setUserNameField(userData.userName);
+    }
+  } catch (err) {
+    return err;
+  }
 };
 
 const useUserForm = (id) => {
   const [userData, setUserData] = useState(INITIAL_USER_DATA);
   const [error, setError] = useState(INITIAL_ERROR_VALUES);
   const [isValidating, setValidating] = useState('initial');
+  const [userNameField, setUserNameField] = useState('');
 
   const setName = (newValue) => {
     const newUserData = { ...userData, name: newValue };
@@ -46,24 +54,21 @@ const useUserForm = (id) => {
     setError(newError);
   };
 
-  const setAllError = (nameError, userNameError) => {
-    setError({ nameError, userNameError });
-  };
-
   useEffect(() => {
     if (id) {
-      getUserDataById(id);
+      getUserDataById(id, setUserData, setUserNameField);
     }
-  }, [id, setUserData]);
+  }, [id]);
 
   return {
     ...userData,
     ...error,
     isValidating,
+    userNameField,
+    setUserNameField,
     setUserData,
     setNameError,
     setUserNameError,
-    setAllError,
     setValidating,
     setName,
     setUserName,

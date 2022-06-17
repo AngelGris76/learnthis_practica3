@@ -9,6 +9,7 @@ const UserGrid = ({ users }) => {
   }
   const usersRendered = users.map(({ id, name, userName, isActive, role }) => (
     <User
+      id={id}
       key={id}
       name={name}
       userName={userName}

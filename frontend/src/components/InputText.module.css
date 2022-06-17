@@ -41,24 +41,3 @@
 .inputFieldError {
   border-color: var(--btn-icon-error-color);
 }
-
-.validateIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translateX(-1rem) translateY(2.3rem);
-  width: 1rem;
-  height: 1rem;
-}
-
-.validating {
-  color: black;
-}
-
-.fail {
-  color: var(--btn-icon-error-color);
-}
-
-.pass {
-  color: green;
-}

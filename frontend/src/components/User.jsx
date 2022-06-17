@@ -1,4 +1,7 @@
+import { useContext } from 'react';
 import ROLE_OPTIONS from '../constants/roleOptions';
+import FormsContext from '../contexts/FormsContext';
+import Button from './Button';
 import style from './User.module.css';
 
 const STYLE_CLASS = {
@@ -19,10 +22,12 @@ const getRoleValue = (role) => {
   }
 };
 
-const User = ({ name, userName, isActive, role }) => {
+const User = ({ id, name, userName, isActive, role }) => {
   const activeUser = isActive ? 'Activo' : 'Inactivo';
   const roleClassName = `${style.role} ${STYLE_CLASS[role]}`;
   const roleValue = getRoleValue(role);
+
+  const { editUserHandler, delteHandler } = useContext(FormsContext);
 
   return (
     <div className={style.userContainer}>
@@ -32,6 +37,7 @@ const User = ({ name, userName, isActive, role }) => {
       </div>
       <p className={STYLE_CLASS.status}>{activeUser}</p>
       <p className={roleClassName}>{roleValue}</p>
+      <Button clickHandler={() => editUserHandler(id)}>Editar</Button>
     </div>
   );
 };

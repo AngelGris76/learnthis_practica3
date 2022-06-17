@@ -4,19 +4,9 @@ import INITIAL_FORMS_VALUE from '../constants/initialFormsValue';
 const useForms = () => {
   const [showForm, setShowForm] = useState(INITIAL_FORMS_VALUE);
 
-  const setShowAddForm = (newValue) => {
+  const setShowUserDataForm = (newValue) => {
     const newForm = {
-      showAddForm: newValue,
-      showEditForm: false,
-      showDeleteForm: false,
-    };
-    setShowForm(newForm);
-  };
-
-  const setShowEditForm = (newValue) => {
-    const newForm = {
-      showAddForm: false,
-      showEditForm: newValue,
+      showUserDataForm: newValue,
       showDeleteForm: false,
     };
     setShowForm(newForm);
@@ -24,8 +14,7 @@ const useForms = () => {
 
   const setShowDeleteForm = (newValue) => {
     const newForm = {
-      showAddForm: false,
-      showEditForm: false,
+      showUserDataForm: false,
       showDeleteForm: newValue,
     };
     setShowForm(newForm);
@@ -37,8 +26,7 @@ const useForms = () => {
 
   return {
     ...showForm,
-    setShowAddForm,
-    setShowEditForm,
+    setShowUserDataForm,
     setShowDeleteForm,
     setCancelForm,
   };

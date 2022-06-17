@@ -8,6 +8,11 @@ const Button = ({
   error = false,
 }) => {
   let buttonClass = `${style[type]}`;
+  const buttonType = type === 'primarySubmit' ? 'submit' : 'button';
+
+  if (type === 'primarySubmit') {
+    buttonClass = `${style.primary}`;
+  }
 
   if (error) {
     const extraType = `${[type]}Error`;
@@ -19,7 +24,6 @@ const Button = ({
     buttonClass = `${buttonClass} ${style[extraType]}`;
   }
 
-  const buttonType = type === 'primarySubmit' ? 'submit' : 'button';
   let buttonInnerStyle;
 
   if (type === 'icon' || type === 'iconFilled') {

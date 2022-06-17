@@ -1,5 +1,5 @@
 const VALIDATE_VALUES = {
-  none: '',
+  initial: 'initial',
   validating: 'validating',
   fail: 'fail',
   pass: 'pass',

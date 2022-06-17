@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Pagination from './components/Pagination';
-import AddUserForm from './components/AddUserForm';
+import UserDataForm from './components/UserDataForm';
 import UserFilters from './components/UserFilters';
 import UserGrid from './components/UserGrid';
 import FiltersContext from './contexts/FiltersContext';
+import FormsContext from './contexts/FormsContext';
 import useFilter from './hooks/useFilters';
 import useForms from './hooks/useForms';
 import useUsers from './hooks/useUsers';
-import EditUserForm from './components/EditUserFomr';
 
 const App = () => {
   const [userId, setUserId] = useState();
@@ -22,22 +22,21 @@ const App = () => {
   const { usersInfo, isLoading, totalUsers, setLoading } = useUsers(filters);
 
   const {
-    showAddForm,
-    showEditForm,
+    showUserDataForm,
     showDeleteForm,
-    setShowAddForm,
-    setShowEditForm,
+    setShowUserDataForm,
     setShowDeleteForm,
     setCancelForm,
   } = useForms();
 
   const addUserHandler = () => {
     setUserId();
-    setShowAddForm(true);
+    setShowUserDataForm(true);
   };
 
-  const editUserHandler = () => {
-    setShowEditForm(true);
+  const editUserHandler = (id) => {
+    setUserId(id);
+    setShowUserDataForm(true);
   };
 
   const cancelHandler = () => {
@@ -50,7 +49,7 @@ const App = () => {
 
   const totalPages = Math.ceil(totalUsers / filters.itemsPerPage);
 
-  const showFilters = !(showAddForm || showEditForm || showDeleteForm);
+  const showFilters = !(showUserDataForm || showDeleteForm);
 
   return (
     <div className='appContainer'>
@@ -72,13 +71,15 @@ const App = () => {
             addUserHandler={addUserHandler}
           />
         )}
-        {showAddForm && (
-          <AddUserForm cancelClick={cancelHandler} userData={userId} />
+        {showUserDataForm && (
+          <UserDataForm cancelClick={cancelHandler} userId={userId} />
         )}
-        {showEditForm && <EditUserForm />}
         {showDeleteForm && <DeleteUserForm />}
         {isLoading && <p>Cargando...</p>}
-        {!isLoading && <UserGrid users={usersInfo} />}
+        <FormsContext.Provider value={{ editUserHandler, deleteHandler }}>
+          {!isLoading && <UserGrid users={usersInfo} />}
+        </FormsContext.Provider>
+
         {!isLoading && usersInfo && (
           <Pagination totalPages={totalPages} setLoading={setLoading} />
         )}

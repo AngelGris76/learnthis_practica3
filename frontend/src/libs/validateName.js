@@ -1,10 +1,17 @@
-const NAME_REGEX = /^([^ _-]+-?_?[^ _-]+ ?)+$/gi;
+import VALIDATE_VALUES from '../constants/validateValues';
+
+const NAME_REGEX = /^([^ _-]+-?_?[^ _-]+ ?)+$/i;
 
 const validateName = (name) => {
   if (name.length < 2 || name.length > 30) {
-    return false;
+    return VALIDATE_VALUES.fail;
   }
-  return NAME_REGEX.test(name);
+
+  if (!NAME_REGEX.test(name)) {
+    return VALIDATE_VALUES.fail;
+  }
+
+  return VALIDATE_VALUES.pass;
 };
 
 export default validateName;
