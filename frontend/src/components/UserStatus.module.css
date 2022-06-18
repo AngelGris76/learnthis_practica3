@@ -1,0 +1,20 @@
+.statusContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+
+  font-size: 0.875rem;
+}
+
+.active {
+  color: var(--color-active);
+}
+
+.inactive {
+  color: var(--color-inactive);
+}
+
+.statusMessage {
+  margin-left: 0.5rem;
+}

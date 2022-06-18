@@ -8,6 +8,10 @@
   border-radius: var(--border-radius-sm);
   border: none;
   box-shadow: var(--shadow-sm);
+
+  background-image: url('icons/arrowDown.svg');
+  background-repeat: no-repeat;
+  background-position: 90% center;
 }
 
 .input:focus,

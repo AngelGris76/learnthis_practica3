@@ -1,33 +1,15 @@
 import { useContext } from 'react';
-import ROLE_OPTIONS from '../constants/roleOptions';
 import FormsContext from '../contexts/FormsContext';
 import Button from './Button';
 import style from './User.module.css';
-
-const STYLE_CLASS = {
-  status: style.status,
-  teacher: style.roleTeacher,
-  student: style.roleStudent,
-  other: style.roleOther,
-};
-
-const getRoleValue = (role) => {
-  switch (role) {
-    case ROLE_OPTIONS.TEACHER.value:
-      return ROLE_OPTIONS.TEACHER.text;
-    case ROLE_OPTIONS.STUDENT.value:
-      return ROLE_OPTIONS.STUDENT.text;
-    default:
-      return ROLE_OPTIONS.OTHER.text;
-  }
-};
+import UserRole from './UserRole';
+import UserStatus from './UserStatus';
+import BUTTON_TYPE from '../constants/buttonType';
+import PencilIcon from './icons/PencilIcon';
+import TrashIcon from './icons/TrashIcon';
 
 const User = ({ id, name, userName, isActive, role }) => {
-  const activeUser = isActive ? 'Activo' : 'Inactivo';
-  const roleClassName = `${style.role} ${STYLE_CLASS[role]}`;
-  const roleValue = getRoleValue(role);
-
-  const { editUserHandler, delteHandler } = useContext(FormsContext);
+  const { editUserHandler, deleteHandler } = useContext(FormsContext);
 
   return (
     <div className={style.userContainer}>
@@ -35,9 +17,27 @@ const User = ({ id, name, userName, isActive, role }) => {
         <p className={style.name}>{name}</p>
         <p className={style.userName}>{`@${userName}`}</p>
       </div>
-      <p className={STYLE_CLASS.status}>{activeUser}</p>
-      <p className={roleClassName}>{roleValue}</p>
-      <Button clickHandler={() => editUserHandler(id)}>Editar</Button>
+      <UserStatus isActive={isActive} />
+      <UserRole role={role} />
+      <span>
+        <Button
+          type={BUTTON_TYPE.icon}
+          clickHandler={() => editUserHandler(id)}
+        >
+          <PencilIcon />
+        </Button>
+      </span>
+      <span className={style.trash}>
+        <Button
+          type={BUTTON_TYPE.icon}
+          error={true}
+          clickHandler={() => {
+            deleteHandler(id);
+          }}
+        >
+          <TrashIcon />
+        </Button>
+      </span>
     </div>
   );
 };

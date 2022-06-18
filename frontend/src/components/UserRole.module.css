@@ -1,0 +1,26 @@
+.role {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+
+  /*  text-align: center; */
+  font-size: 0.875rem;
+}
+
+.roleMessage {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.roleTeacher {
+  background-color: var(--bg-color-role-teacher);
+}
+
+.roleStudent {
+  background-color: var(--bg-color-role-student);
+}
+
+.roleOther {
+  background-color: var(--bg-color-role-other);
+}

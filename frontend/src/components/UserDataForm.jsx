@@ -11,8 +11,11 @@ import InputTextValidatable from './InputTextValidatable';
 import VALIDATE_VALUES from '../constants/validateValues';
 import { useEffect } from 'react';
 import validateNewUserName from '../libs/validateNewUserName';
+import updateUserById from '../libs/api/updateUserById';
+import getLastUserId from '../libs/api/getLastUserId';
+import createUser from '../libs/api/createUser';
 
-const UserDataForm = ({ cancelClick, userId }) => {
+const UserDataForm = ({ cancelClick, userId, setLoading }) => {
   const {
     nameError,
     userNameError,
@@ -54,17 +57,24 @@ const UserDataForm = ({ cancelClick, userId }) => {
     setUserNameError,
   ]);
 
-  const addUser = (ev, newUser) => {
+  const addUser = async (ev, newUser) => {
     ev.preventDefault();
 
     if (newUser.id) {
-      // hacer un patch
+      await updateUserById(newUser.id, newUser);
     } else {
+      const lastId = await getLastUserId();
+
+      newUser.id = lastId + 1;
+
+      await createUser(newUser);
+
       // obtener el ultimo id
       /// sumar 1
       // hacer un post
     }
 
+    /*
     console.group('newUser');
     console.log(newUser.id);
     console.log(newUser.name);
@@ -72,7 +82,8 @@ const UserDataForm = ({ cancelClick, userId }) => {
     console.log(newUser.isActive);
     console.log(newUser.role);
     console.groupEnd();
-
+*/
+    setLoading();
     cancelClick();
   };
 
@@ -103,7 +114,6 @@ const UserDataForm = ({ cancelClick, userId }) => {
             setName(newValue);
           }}
           validateHandler={(newNameValue) => {
-            console.log(newNameValue);
             const isValidName = validateName(newNameValue);
             setNameError(isValidName);
           }}
@@ -128,7 +138,7 @@ const UserDataForm = ({ cancelClick, userId }) => {
         />
         <CheckBox label={'¿Activo?'} value={isActive} setter={setActive} />
         <Button type={BUTTON_TYPE.primarySubmit} disabled={anyError}>
-          {userId && 'Actualizar usuario'}
+          {userId && 'Editar usuario'}
           {!userId && 'Añadir usuario'}
         </Button>
       </div>

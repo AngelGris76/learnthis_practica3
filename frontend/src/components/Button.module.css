@@ -1,4 +1,5 @@
 .primary,
+.primarySubmit,
 .secondary {
   height: 40px;
   padding: 0.25rem 1rem;
@@ -8,7 +9,8 @@
   box-shadow: var(--shadow-sm);
 }
 
-.primary {
+.primary,
+.primarySubmit {
   color: var(--btn-primary-color);
   background-color: var(--btn-primary-bg-color);
 }
@@ -19,16 +21,19 @@
 }
 
 .primary:focus,
+.primarySubmit:focus,
 .secondary:focus {
   box-shadow: var(--shadow-md);
 }
 
 .primary:hover,
+.primarySubmit:hover,
 .secondary:hover {
   box-shadow: var(--shadow-md);
 }
 
 .primaryDisable,
+.primarySubmitDisable,
 .secondaryDisable {
   color: var(--btn-disable-color);
   background-color: var(--btn-disable-bg-color);
@@ -36,6 +41,7 @@
 }
 
 .primaryDisable:hover,
+.primarySubmitDisable:hover,
 .secondaryDisable:hover {
   cursor: default;
   box-shadow: var(--shadow-sm);

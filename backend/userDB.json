@@ -1,13 +1,6 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Sebastian Smuraglia",
-      "userName": "sebassmu",
-      "isActive": true,
-      "role": "student"
-    },
-    {
       "id": 2,
       "name": "Pablo Castellanos",
       "userName": "pcastellanos",
@@ -41,6 +34,20 @@
       "userName": "valenariel",
       "isActive": true,
       "role": "student"
+    },
+    {
+      "id": 7,
+      "name": "Sebastian Smuraglia",
+      "userName": "sebassmu",
+      "isActive": true,
+      "role": "student"
+    },
+    {
+      "id": 8,
+      "name": "Martin Smuraglia",
+      "userName": "tinchosmu",
+      "isActive": false,
+      "role": "other"
     }
   ]
 }

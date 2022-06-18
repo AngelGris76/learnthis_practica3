@@ -10,10 +10,6 @@ const Button = ({
   let buttonClass = `${style[type]}`;
   const buttonType = type === 'primarySubmit' ? 'submit' : 'button';
 
-  if (type === 'primarySubmit') {
-    buttonClass = `${style.primary}`;
-  }
-
   if (error) {
     const extraType = `${[type]}Error`;
     buttonClass = `${buttonClass} ${style[extraType]}`;

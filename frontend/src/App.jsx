@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import DeleteUserForm from './components/DeleteUserForm';
 import Pagination from './components/Pagination';
 import UserDataForm from './components/UserDataForm';
 import UserFilters from './components/UserFilters';
@@ -43,7 +44,8 @@ const App = () => {
     setCancelForm();
   };
 
-  const deleteHandler = () => {
+  const deleteHandler = (id) => {
+    setUserId(id);
     setShowDeleteForm(true);
   };
 
@@ -72,9 +74,19 @@ const App = () => {
           />
         )}
         {showUserDataForm && (
-          <UserDataForm cancelClick={cancelHandler} userId={userId} />
+          <UserDataForm
+            cancelClick={cancelHandler}
+            userId={userId}
+            setLoading={setLoading}
+          />
         )}
-        {showDeleteForm && <DeleteUserForm />}
+        {showDeleteForm && (
+          <DeleteUserForm
+            userId={userId}
+            cancelClick={cancelHandler}
+            setLoading={setLoading}
+          />
+        )}
         {isLoading && <p>Cargando...</p>}
         <FormsContext.Provider value={{ editUserHandler, deleteHandler }}>
           {!isLoading && <UserGrid users={usersInfo} />}
