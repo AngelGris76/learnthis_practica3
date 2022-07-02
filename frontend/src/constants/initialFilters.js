@@ -1,7 +1,7 @@
 const INITIAL_FILTERS = {
   searchTerm: '',
   onlyActive: false,
-  userOrder: 'default',
+  sortBy: 'default',
   page: 1,
   itemsPerPage: 6,
 };

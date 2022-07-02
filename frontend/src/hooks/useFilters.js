@@ -4,34 +4,36 @@ import INITIAL_FILTERS from '../constants/initialFilters';
 const useFilter = () => {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
-  const setOnlyActive = (newValue) => {
-    const newFitlers = { ...filters, onlyActive: newValue };
-    if (newValue) {
-      newFitlers.userOrder = INITIAL_FILTERS.userOrder;
+  const setOnlyActive = (newOnlyActiveValue) => {
+    const newFilters = { ...filters, onlyActive: newOnlyActiveValue };
+    if (newOnlyActiveValue) {
+      newFilters.sortBy = INITIAL_FILTERS.sortBy;
     }
-    setFilters(newFitlers);
-  };
-
-  const setOrder = (newValue) => {
-    const newFitlers = { ...filters, userOrder: newValue };
-    setFilters(newFitlers);
-  };
-
-  const setSearchTerm = (newValue) => {
-    const newFilters = { ...filters, searchTerm: newValue };
+    newFilters.page = INITIAL_FILTERS.page;
     setFilters(newFilters);
   };
 
-  const setPage = (newValue) => {
-    const newFilters = { ...filters, page: newValue };
+  const setSortBy = (newSortByValue) => {
+    const newFilters = { ...filters, sortBy: newSortByValue };
     setFilters(newFilters);
   };
 
-  const setItemsPerPage = (newValue) => {
+  const setSearchTerm = (newSearchTermValue) => {
+    const newFilters = { ...filters, searchTerm: newSearchTermValue };
+    newFilters.page = INITIAL_FILTERS.page;
+    setFilters(newFilters);
+  };
+
+  const setPage = (newPageValue) => {
+    const newFilters = { ...filters, page: newPageValue };
+    setFilters(newFilters);
+  };
+
+  const setItemsPerPage = (newItemsPerPageValue) => {
     const newFilters = {
       ...filters,
       page: INITIAL_FILTERS.page,
-      itemsPerPage: newValue,
+      itemsPerPage: newItemsPerPageValue,
     };
     setFilters(newFilters);
   };
@@ -39,7 +41,7 @@ const useFilter = () => {
   return {
     filters,
     setOnlyActive,
-    setOrder,
+    setSortBy,
     setSearchTerm,
     setPage,
     setItemsPerPage,

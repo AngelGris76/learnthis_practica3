@@ -1,7 +1,7 @@
 import User from './User';
 
-const UserGrid = ({ users }) => {
-  if (!users) {
+const UserGrid = ({ users, error }) => {
+  if (error) {
     return <p>Error al cargar los datos</p>;
   }
   if (!users.length) {

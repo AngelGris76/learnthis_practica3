@@ -15,7 +15,7 @@ import updateUserById from '../libs/api/updateUserById';
 import getLastUserId from '../libs/api/getLastUserId';
 import createUser from '../libs/api/createUser';
 
-const UserDataForm = ({ cancelClick, userId, setLoading }) => {
+const UserDataForm = ({ currentUser, cancelClick, setLoading }) => {
   const {
     nameError,
     userNameError,
@@ -33,7 +33,7 @@ const UserDataForm = ({ cancelClick, userId, setLoading }) => {
     setUserName,
     setRole,
     setActive,
-  } = useUserForm(userId);
+  } = useUserForm(currentUser);
 
   useEffect(() => {
     let timeOut;
@@ -41,7 +41,7 @@ const UserDataForm = ({ cancelClick, userId, setLoading }) => {
       timeOut = setTimeout(() => {
         setUserName(userNameField);
         setValidating(true);
-        validateNewUserName(userId, userNameField, setUserNameError);
+        validateNewUserName(currentUser.id, userNameField, setUserNameError);
       }, 300);
     }
 
@@ -49,7 +49,7 @@ const UserDataForm = ({ cancelClick, userId, setLoading }) => {
       clearTimeout(timeOut);
     };
   }, [
-    userId,
+    currentUser.id,
     userName,
     userNameField,
     setUserName,
@@ -68,21 +68,8 @@ const UserDataForm = ({ cancelClick, userId, setLoading }) => {
       newUser.id = lastId + 1;
 
       await createUser(newUser);
-
-      // obtener el ultimo id
-      /// sumar 1
-      // hacer un post
     }
 
-    /*
-    console.group('newUser');
-    console.log(newUser.id);
-    console.log(newUser.name);
-    console.log(newUser.userName);
-    console.log(newUser.isActive);
-    console.log(newUser.role);
-    console.groupEnd();
-*/
     setLoading();
     cancelClick();
   };
@@ -98,7 +85,7 @@ const UserDataForm = ({ cancelClick, userId, setLoading }) => {
     <form
       className={style.formContainer}
       onSubmit={(ev) => {
-        const newUser = { id: userId, name, userName, isActive, role };
+        const newUser = { id: currentUser.id, name, userName, isActive, role };
         addUser(ev, newUser);
       }}
     >
@@ -138,8 +125,8 @@ const UserDataForm = ({ cancelClick, userId, setLoading }) => {
         />
         <CheckBox label={'¿Activo?'} value={isActive} setter={setActive} />
         <Button type={BUTTON_TYPE.primarySubmit} disabled={anyError}>
-          {userId && 'Editar usuario'}
-          {!userId && 'Añadir usuario'}
+          {currentUser && 'Editar usuario'}
+          {!currentUser && 'Añadir usuario'}
         </Button>
       </div>
     </form>

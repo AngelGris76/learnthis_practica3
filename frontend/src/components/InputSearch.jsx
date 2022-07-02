@@ -8,17 +8,15 @@ const InputSearch = () => {
   const [term, setTerm] = useState(searchTerm);
 
   useEffect(() => {
-    let timeOutId;
-
     if (term !== searchTerm) {
-      timeOutId = setTimeout(() => {
+      const timeOutId = setTimeout(() => {
         setSearchTerm(term);
       }, 300);
-    }
 
-    return () => {
-      clearTimeout(timeOutId);
-    };
+      return () => {
+        clearTimeout(timeOutId);
+      };
+    }
   }, [term, setSearchTerm, searchTerm]);
 
   return (

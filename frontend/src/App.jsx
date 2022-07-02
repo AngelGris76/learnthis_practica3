@@ -4,23 +4,31 @@ import Pagination from './components/Pagination';
 import UserDataForm from './components/UserDataForm';
 import UserFilters from './components/UserFilters';
 import UserGrid from './components/UserGrid';
+import INITIAL_USER_DATA from './constants/initialUserData';
 import FiltersContext from './contexts/FiltersContext';
 import FormsContext from './contexts/FormsContext';
 import useFilter from './hooks/useFilters';
 import useForms from './hooks/useForms';
 import useUsers from './hooks/useUsers';
+import {
+  getOnlyActiveUsers,
+  orderUsers,
+  paginateUsers,
+  searchUser,
+} from './libs/api/filtersFunctions';
 
 const App = () => {
-  const [userId, setUserId] = useState();
+  const [currentUser, setCurrentUser] = useState();
   const {
     filters,
     setOnlyActive,
-    setOrder,
+    setSortBy,
     setSearchTerm,
     setPage,
     setItemsPerPage,
   } = useFilter();
-  const { usersInfo, isLoading, totalUsers, setLoading } = useUsers(filters);
+
+  const { users, error, isLoading, setLoading } = useUsers();
 
   const {
     showUserDataForm,
@@ -31,25 +39,29 @@ const App = () => {
   } = useForms();
 
   const addUserHandler = () => {
-    setUserId();
+    setCurrentUser(INITIAL_USER_DATA);
     setShowUserDataForm(true);
   };
 
-  const editUserHandler = (id) => {
-    setUserId(id);
+  const editUserHandler = (newCurrentUser) => {
+    setCurrentUser(newCurrentUser);
     setShowUserDataForm(true);
   };
 
-  const cancelHandler = () => {
-    setCancelForm();
-  };
-
-  const deleteHandler = (id) => {
-    setUserId(id);
+  const deleteHandler = (newCurrentUser) => {
+    setCurrentUser(newCurrentUser);
     setShowDeleteForm(true);
   };
 
-  const totalPages = Math.ceil(totalUsers / filters.itemsPerPage);
+  let filteredUsers = getOnlyActiveUsers(users, filters.onlyActive);
+  filteredUsers = searchUser(filteredUsers, filters.searchTerm);
+  filteredUsers = orderUsers(filteredUsers, filters.sortBy);
+
+  const { paginatedUsers, totalPages } = paginateUsers(
+    filteredUsers,
+    filters.page,
+    filters.itemsPerPage
+  );
 
   const showFilters = !(showUserDataForm || showDeleteForm);
 
@@ -61,38 +73,37 @@ const App = () => {
         value={{
           filters,
           setOnlyActive,
-          setOrder,
+          setSortBy,
           setSearchTerm,
           setPage,
           setItemsPerPage,
         }}
       >
-        {showFilters && (
-          <UserFilters
-            onlyActive={filters.onlyActive}
-            addUserHandler={addUserHandler}
-          />
-        )}
+        {showFilters && <UserFilters addUserHandler={addUserHandler} />}
         {showUserDataForm && (
           <UserDataForm
-            cancelClick={cancelHandler}
-            userId={userId}
+            cancelClick={() => {
+              setCancelForm();
+            }}
+            currentUser={currentUser}
             setLoading={setLoading}
           />
         )}
         {showDeleteForm && (
           <DeleteUserForm
-            userId={userId}
-            cancelClick={cancelHandler}
+            currentUser={currentUser}
+            cancelClick={() => {
+              setCancelForm();
+            }}
             setLoading={setLoading}
           />
         )}
         {isLoading && <p>Cargando...</p>}
         <FormsContext.Provider value={{ editUserHandler, deleteHandler }}>
-          {!isLoading && <UserGrid users={usersInfo} />}
+          {!isLoading && <UserGrid users={paginatedUsers} error={error} />}
         </FormsContext.Provider>
 
-        {!isLoading && usersInfo && (
+        {!isLoading && users && (
           <Pagination totalPages={totalPages} setLoading={setLoading} />
         )}
       </FiltersContext.Provider>

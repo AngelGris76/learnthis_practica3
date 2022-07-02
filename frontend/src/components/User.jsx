@@ -22,7 +22,9 @@ const User = ({ id, name, userName, isActive, role }) => {
       <span>
         <Button
           type={BUTTON_TYPE.icon}
-          clickHandler={() => editUserHandler(id)}
+          clickHandler={() =>
+            editUserHandler({ id, name, userName, isActive, role })
+          }
         >
           <PencilIcon />
         </Button>
@@ -32,7 +34,7 @@ const User = ({ id, name, userName, isActive, role }) => {
           type={BUTTON_TYPE.icon}
           error={true}
           clickHandler={() => {
-            deleteHandler(id);
+            deleteHandler({ id, name });
           }}
         >
           <TrashIcon />

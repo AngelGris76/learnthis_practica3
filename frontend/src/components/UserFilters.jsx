@@ -9,10 +9,10 @@ import style from './UserFilters.module.css';
 import { useContext } from 'react';
 import FiltersContext from '../contexts/FiltersContext';
 
-const UserFilters = ({ onlyActive, addUserHandler }) => {
-  const { filters, setOrder, setOnlyActive } = useContext(FiltersContext);
+const UserFilters = ({ addUserHandler }) => {
+  const { filters, setSortBy, setOnlyActive } = useContext(FiltersContext);
 
-  const selectOptions = !onlyActive
+  const selectOptions = !filters.onlyActive
     ? ORDER_FILTER
     : Object.values(ORDER_FILTER).filter(({ value }) => value !== 'active');
 
@@ -22,8 +22,8 @@ const UserFilters = ({ onlyActive, addUserHandler }) => {
         <InputSearch />
         <InputSelect
           options={selectOptions}
-          value={filters.userOder}
-          setter={setOrder}
+          value={filters.setSortBy}
+          setter={setSortBy}
         />
       </div>
       <div className={style.formFilterDown}>

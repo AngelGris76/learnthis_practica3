@@ -2,9 +2,9 @@ import ROLE_OPTIONS from '../constants/roleOptions';
 import style from './UserRole.module.css';
 
 const STYLE_CLASS = {
-  teacher: style.roleTeacher,
-  student: style.roleStudent,
-  other: style.roleOther,
+  [ROLE_OPTIONS.TEACHER.value]: style.roleTeacher,
+  [ROLE_OPTIONS.STUDENT.value]: style.roleStudent,
+  [ROLE_OPTIONS.OTHER.value]: style.roleOther,
 };
 
 const getRoleValue = (role) => {

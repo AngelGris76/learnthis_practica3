@@ -1,23 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import INITIAL_ERROR_VALUES from '../constants/initialErrorValues';
-import INITIAL_USER_DATA from '../constants/initialUserData';
-import findUserById from '../libs/api/findUserById';
 
-const getUserDataById = async (id, setUserData, setUserNameField) => {
-  try {
-    const userData = await findUserById(id);
+const useUserForm = (currentUser) => {
+  const [userData, setUserData] = useState({
+    name: currentUser.name,
+    userName: currentUser.userName,
+    isActive: currentUser.isActive,
+    role: currentUser.role,
+  });
 
-    if (userData) {
-      setUserData(userData);
-      setUserNameField(userData.userName);
-    }
-  } catch (err) {
-    return err;
-  }
-};
-
-const useUserForm = (id) => {
-  const [userData, setUserData] = useState(INITIAL_USER_DATA);
   const [error, setError] = useState(INITIAL_ERROR_VALUES);
   const [isValidating, setValidating] = useState('initial');
   const [userNameField, setUserNameField] = useState('');
@@ -53,12 +44,6 @@ const useUserForm = (id) => {
     setValidating(false);
     setError(newError);
   };
-
-  useEffect(() => {
-    if (id) {
-      getUserDataById(id, setUserData, setUserNameField);
-    }
-  }, [id]);
 
   return {
     ...userData,

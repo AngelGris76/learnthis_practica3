@@ -11,8 +11,8 @@ import style from './Pagination.module.css';
 const Pagination = ({ totalPages, setLoading }) => {
   const { filters, setPage, setItemsPerPage } = useContext(FiltersContext);
 
-  const decButtonDisable = filters.page === 1;
-  const incButtonDisable = filters.page === totalPages;
+  const decButtonDisable = filters.page === 1 || totalPages === 0;
+  const incButtonDisable = filters.page === totalPages || totalPages === 0;
 
   const increasePage = () => {
     setPage(filters.page + 1);

@@ -1,0 +1,62 @@
+Ver el diseño en figma.
+
+Pasar todas las medidas a rem, incluso las fijas (altura de algunos contenedores)
+
+No dejar valores mágicos.
+
+Yo implementé los iconos de los select y checkbox desde CSS
+
+Yo utilicé "appearence: none" para poder stilar select y checkbox.
+
+Yo utilicé filter, para la paginación
+
+Desde el hook de filtros, devuelvo totaluser y luego hago el cálculo (en el componente) para saber la cantidad de páginas
+
+El "marco" y el botón de cancelar los agrega en todos los formularios
+
+Use el mismo componente para el formulario de creación y edición.
+
+
+
+Cosas que noté en los video de Pablo:
+-------------------------------------
+
+Recomienda hacer una tabla de verdad, para cuando se necesite hacer un sort custom.
+Así poder determinar bien cuando hay que devolver 0, 1 y -1 en la función sort.
+
+Todos los iconos los usa como componentes, incluso aquellos utilizados para el estilo del los select y los checkbox.
+Alos componentes iconos, también le pasas props, para poder destructurar, y así poder pasarle valores.
+
+Los componentes de formularios los hace genéricos. Desde dentro destructura props, y asi se le puede pasar cualquier cosa.
+Incluso los eventos se los pasa a través de props, NO pasando un "setter"
+
+Incluso para la constante de estilos, el nombre de la propiedad del objeto, proviene de una constante
+[nombreDeConstante] : style.reglaCSS
+
+Utiliza, "opacity: 0, position: absolute y top: xxx" para poder stilar checkbox y select.
+
+Utilza slice para la paginación, lo cual es mucho más óptimo y más cómodo.
+
+Para los botones con iconos y poder pasar un componente por prop, usa destructuring con alias
+y así poder utilizarlo directamente como componente. Y también le pasa prop como a los componentes de formulario
+({icono : Icono})
+
+Desde la función de getUser, ya devuelve el total de páginas.
+
+Para cancelar un fetch, en el useEffect es necesario retornar un abortController.
+
+El estado para el manejo de los formularios, los hace con valores no booleanos
+y usa operador ternario para mostrar uno u otro formulario.
+
+Crea un formulario para creación y otro para edición. Y por supuesto uno para borrado.
+
+Para colocar el botón de creanción de usuario agrega una prop slot al UsersFitlers. Ese stlot sería como "un lugar"
+donde uno pudiese agregar lo que quisiese. Ya que dicho botón no cumpliría ninguna función relativa a los filtros.
+
+Para el formulario de creación, los campos de name y username los usa controlados, mientras que los campos de role y de active son no-controlados
+ya que los valores son predefinidos y por lo tanto cualquiera de ellos será correcto y no hay que hacer validación extra.
+
+Para la validación asíncrona -la que chequea contra la base de datos- sólo lo hace si el formato es correcto
+
+
+Para el formulario de edición, todos los inputs son controlados.

@@ -19,6 +19,7 @@
 .inputField {
   height: 2.5rem;
   padding: 1rem;
+  padding-right: 2.5rem;
   width: 100%;
   border: 1px solid transparent;
   border-radius: var(--border-radius-sm);
