@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import BUTTON_TYPE from '../constants/buttonType';
 import FormsContext from '../contexts/FormsContext';
 import deleteUserById from '../libs/api/deleteUserById';
-import Button from './Button';
+import Button from './formsControls/Button';
 import style from './DeleteUserForm.module.css';
 
 const DeleteUserForm = () => {

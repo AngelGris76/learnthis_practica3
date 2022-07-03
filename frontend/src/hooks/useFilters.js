@@ -40,9 +40,11 @@ const useFilter = () => {
 
   return {
     filters,
-    setOnlyActive,
-    setSortBy,
-    setSearchTerm,
+    filtersSetters: {
+      setOnlyActive,
+      setSortBy,
+      setSearchTerm,
+    },
     setPage,
     setItemsPerPage,
   };

@@ -1,4 +1,4 @@
-import VALIDATE_VALUES from '../constants/validateValues';
+import VALIDATE_VALUES from '../../constants/validateValues';
 import style from './InputText.module.css';
 
 const InputText = ({ label, value, changeHandler, validateHandler, error }) => {

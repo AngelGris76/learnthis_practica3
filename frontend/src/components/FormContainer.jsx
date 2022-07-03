@@ -1,25 +1,24 @@
-import Button from './Button';
+import Button from './formsControls/Button';
 import DeleteUserForm from './DeleteUserForm';
 import UserDataForm from './UserDataForm';
 import style from './FormContainer.module.css';
 import BUTTON_TYPE from '../constants/buttonType';
 import { useContext } from 'react';
 import FormsContext from '../contexts/FormsContext';
+import SHOW_FORMS_VALUES from '../constants/showFormsValues';
 
-const FormContainer = ({ showUserDataForm, showDeleteForm }) => {
+const FormContainer = ({ showForm }) => {
   const { setCancelForm } = useContext(FormsContext);
 
-  const showForm = showUserDataForm || showDeleteForm;
-
-  if (!showForm) return null;
+  if (showForm === SHOW_FORMS_VALUES.usersFilters) return null;
   return (
     <div className={style.formContainer}>
       <Button type={BUTTON_TYPE.iconCancel} clickHandler={setCancelForm}>
         X
       </Button>
 
-      {showUserDataForm && <UserDataForm />}
-      {showDeleteForm && <DeleteUserForm />}
+      {showForm === SHOW_FORMS_VALUES.userDataForm && <UserDataForm />}
+      {showForm === SHOW_FORMS_VALUES.userDeleteForm && <DeleteUserForm />}
     </div>
   );
 };

@@ -1,20 +1,21 @@
+import { useContext, useEffect } from 'react';
 import BUTTON_TYPE from '../constants/buttonType';
-import Button from './Button';
-import InputText from './InputText';
-import style from './AddUserForm.module.css';
+import VALIDATE_VALUES from '../constants/validateValues';
+import ROLE_OPTIONS from '../constants/roleOptions';
+import Button from './formsControls/Button';
+import InputText from './formsControls/InputText';
+import InputSelect from './formsControls/InputSelect';
+import CheckBox from './formsControls/CheckBox';
+import InputTextValidatable from './formsControls/InputTextValidatable';
 import useUserForm from '../hooks/useUserForm';
 import validateName from '../libs/validateName';
-import InputSelect from './InputSelect';
-import CheckBox from './CheckBox';
-import ROLE_OPTIONS from '../constants/roleOptions';
-import InputTextValidatable from './InputTextValidatable';
-import VALIDATE_VALUES from '../constants/validateValues';
-import { useContext, useEffect } from 'react';
 import validateNewUserName from '../libs/validateNewUserName';
 import updateUserById from '../libs/api/updateUserById';
 import getLastUserId from '../libs/api/getLastUserId';
 import createUser from '../libs/api/createUser';
 import FormsContext from '../contexts/FormsContext';
+
+import style from './UserDataForm.module.css';
 
 const UserDataForm = () => {
   const { currentUser, setCancelForm, setLoading } = useContext(FormsContext);
@@ -39,18 +40,17 @@ const UserDataForm = () => {
   } = useUserForm(currentUser);
 
   useEffect(() => {
-    let timeOut;
     if (userName !== userNameField) {
-      timeOut = setTimeout(() => {
+      const timeOut = setTimeout(() => {
         setUserName(userNameField);
         setValidating(true);
         validateNewUserName(currentUser.id, userNameField, setUserNameError);
       }, 300);
-    }
 
-    return () => {
-      clearTimeout(timeOut);
-    };
+      return () => {
+        clearTimeout(timeOut);
+      };
+    }
   }, [
     currentUser.id,
     userName,
@@ -67,9 +67,7 @@ const UserDataForm = () => {
       await updateUserById(newUser.id, newUser);
     } else {
       const lastId = await getLastUserId();
-
       newUser.id = lastId + 1;
-
       await createUser(newUser);
     }
 
@@ -124,8 +122,8 @@ const UserDataForm = () => {
         />
         <CheckBox label={'¿Activo?'} value={isActive} setter={setActive} />
         <Button type={BUTTON_TYPE.primarySubmit} disabled={anyError}>
-          {currentUser && 'Editar usuario'}
-          {!currentUser && 'Añadir usuario'}
+          {currentUser.id && 'Editar usuario'}
+          {!currentUser.id && 'Añadir usuario'}
         </Button>
       </div>
     </form>

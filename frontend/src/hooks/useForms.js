@@ -1,31 +1,23 @@
 import { useState } from 'react';
-import INITIAL_FORMS_VALUE from '../constants/initialFormsValue';
+import SHOW_FORMS_VALUES from '../constants/showFormsValues';
 
 const useForms = () => {
-  const [showForm, setShowForm] = useState(INITIAL_FORMS_VALUE);
+  const [showForm, setShowForm] = useState(SHOW_FORMS_VALUES.usersFilters);
 
-  const setShowUserDataForm = (newValue) => {
-    const newForm = {
-      showUserDataForm: newValue,
-      showDeleteForm: false,
-    };
-    setShowForm(newForm);
+  const setShowUserDataForm = () => {
+    setShowForm(SHOW_FORMS_VALUES.userDataForm);
   };
 
-  const setShowDeleteForm = (newValue) => {
-    const newForm = {
-      showUserDataForm: false,
-      showDeleteForm: newValue,
-    };
-    setShowForm(newForm);
+  const setShowDeleteForm = () => {
+    setShowForm(SHOW_FORMS_VALUES.userDeleteForm);
   };
 
   const setCancelForm = () => {
-    setShowForm(INITIAL_FORMS_VALUE);
+    setShowForm(SHOW_FORMS_VALUES.usersFilters);
   };
 
   return {
-    ...showForm,
+    showForm,
     setShowUserDataForm,
     setShowDeleteForm,
     setCancelForm,

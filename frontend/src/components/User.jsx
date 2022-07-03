@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import FormsContext from '../contexts/FormsContext';
-import Button from './Button';
+import Button from './formsControls/Button';
 import style from './User.module.css';
 import UserRole from './UserRole';
 import UserStatus from './UserStatus';
@@ -25,7 +25,7 @@ const User = ({ id, name, userName, isActive, role }) => {
           type={BUTTON_TYPE.icon}
           clickHandler={() => {
             setCurrentUser({ id, name, userName, isActive, role });
-            setShowUserDataForm(true);
+            setShowUserDataForm();
           }}
         >
           <PencilIcon />
@@ -37,7 +37,7 @@ const User = ({ id, name, userName, isActive, role }) => {
           error={true}
           clickHandler={() => {
             setCurrentUser({ id, name });
-            setShowDeleteForm(true);
+            setShowDeleteForm();
           }}
         >
           <TrashIcon />

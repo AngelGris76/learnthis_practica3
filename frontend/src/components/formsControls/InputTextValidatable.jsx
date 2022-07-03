@@ -1,6 +1,6 @@
+import ValidatingIcons from '../ValidatingIcons';
+import VALIDATE_VALUES from '../../constants/validateValues';
 import style from './InputText.module.css';
-import VALIDATE_VALUES from '../constants/validateValues';
-import ValidatingIcons from './ValidatingIcons';
 
 const InputTextValidatable = ({
   label,

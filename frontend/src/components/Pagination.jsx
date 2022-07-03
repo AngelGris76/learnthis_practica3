@@ -4,8 +4,8 @@ import ITEMS_PER_PAGE from '../constants/itemsPerPage';
 import FiltersContext from '../contexts/FiltersContext';
 import ArrowLeft from './icons/ArrowLeft';
 import ArrowRight from './icons/ArrowRight';
-import Button from './Button';
-import InputSelect from './InputSelect';
+import Button from './formsControls/Button';
+import InputSelect from './formsControls/InputSelect';
 import style from './Pagination.module.css';
 
 const Pagination = ({ totalPages, setLoading }) => {
@@ -13,14 +13,6 @@ const Pagination = ({ totalPages, setLoading }) => {
 
   const decButtonDisable = filters.page === 1 || totalPages === 0;
   const incButtonDisable = filters.page === totalPages || totalPages === 0;
-
-  const increasePage = () => {
-    setPage(filters.page + 1);
-  };
-
-  const decreasePage = () => {
-    setPage(filters.page - 1);
-  };
 
   return (
     <div className={style.paginationContainer}>
@@ -39,7 +31,9 @@ const Pagination = ({ totalPages, setLoading }) => {
         <Button
           disabled={decButtonDisable}
           type={BUTTON_TYPE.iconFilled}
-          clickHandler={decreasePage}
+          clickHandler={() => {
+            setPage(filters.page - 1);
+          }}
         >
           <ArrowLeft />
         </Button>
@@ -47,7 +41,9 @@ const Pagination = ({ totalPages, setLoading }) => {
         <Button
           disabled={incButtonDisable}
           type={BUTTON_TYPE.iconFilled}
-          clickHandler={increasePage}
+          clickHandler={() => {
+            setPage(filters.page + 1);
+          }}
         >
           <ArrowRight />
         </Button>

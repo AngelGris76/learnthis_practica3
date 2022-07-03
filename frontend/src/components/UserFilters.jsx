@@ -1,31 +1,37 @@
-import Button from './Button';
-import InputSearch from './InputSearch';
-import InputSelect from './InputSelect';
+import Button from './formsControls/Button';
+import InputSearch from './formsControls/InputSearch';
+import InputSelect from './formsControls/InputSelect';
 import ORDER_FILTER from '../constants/orderFilter';
 import BUTTON_TYPE from '../constants/buttonType';
-import CheckBox from './CheckBox';
+import CheckBox from './formsControls/CheckBox';
 
 import style from './UserFilters.module.css';
 import { useContext } from 'react';
-import FiltersContext from '../contexts/FiltersContext';
 import FormsContext from '../contexts/FormsContext';
 import INITIAL_USER_DATA from '../constants/initialUserData';
+import SHOW_FORMS_VALUES from '../constants/showFormsValues';
 
-const UserFilters = () => {
+const UserFilters = ({ filters, filtersSetters, showForm }) => {
+  const { setSortBy, setOnlyActive } = filtersSetters;
   const { setCurrentUser, setShowUserDataForm } = useContext(FormsContext);
-  const { filters, setSortBy, setOnlyActive } = useContext(FiltersContext);
 
   const selectOptions = !filters.onlyActive
     ? ORDER_FILTER
-    : Object.values(ORDER_FILTER).filter(({ value }) => value !== 'active');
+    : Object.values(ORDER_FILTER).filter(
+        ({ value }) => value !== ORDER_FILTER.ACTIVE.value
+      );
+
+  if (showForm !== SHOW_FORMS_VALUES.usersFilters) {
+    return null;
+  }
 
   return (
     <div className={style.formFilterContainer}>
       <div className={style.formFilterUp}>
-        <InputSearch />
+        <InputSearch filters={filters} filtersSetters={filtersSetters} />
         <InputSelect
           options={selectOptions}
-          value={filters.setSortBy}
+          value={filters.sortBy}
           setter={setSortBy}
         />
       </div>
@@ -39,7 +45,7 @@ const UserFilters = () => {
           type={BUTTON_TYPE.primary}
           clickHandler={() => {
             setCurrentUser(INITIAL_USER_DATA);
-            setShowUserDataForm(true);
+            setShowUserDataForm();
           }}
         >
           Añadir usuario

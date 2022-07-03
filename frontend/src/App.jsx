@@ -12,63 +12,45 @@ import getFilteredUsers from './libs/filtersFunctions';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState();
-  const {
-    filters,
-    setOnlyActive,
-    setSortBy,
-    setSearchTerm,
-    setPage,
-    setItemsPerPage,
-  } = useFilter();
-
+  const { filters, filtersSetters, setPage, setItemsPerPage } = useFilter();
   const { users, error, isLoading, setLoading } = useUsers();
-
-  const {
-    showUserDataForm,
-    showDeleteForm,
-    setShowUserDataForm,
-    setShowDeleteForm,
-    setCancelForm,
-  } = useForms();
+  const { showForm, setShowUserDataForm, setShowDeleteForm, setCancelForm } =
+    useForms();
 
   const { paginatedUsers, totalPages } = getFilteredUsers(users, filters);
-
-  const showFilters = !(showUserDataForm || showDeleteForm);
 
   return (
     <div className='appContainer'>
       <h1 className='appTitle'>Listado de usuarios</h1>
 
+      <FormsContext.Provider
+        value={{
+          currentUser,
+          setCurrentUser,
+          setLoading,
+          setCancelForm,
+          setShowDeleteForm,
+          setShowUserDataForm,
+        }}
+      >
+        <UserFilters
+          filters={filters}
+          filtersSetters={filtersSetters}
+          showForm={showForm}
+        />
+        <FormContainer showForm={showForm} />
+
+        {isLoading && <p>Cargando...</p>}
+        {!isLoading && <UserGrid users={paginatedUsers} error={error} />}
+      </FormsContext.Provider>
+
       <FiltersContext.Provider
         value={{
           filters,
-          setOnlyActive,
-          setSortBy,
-          setSearchTerm,
           setPage,
           setItemsPerPage,
         }}
       >
-        <FormsContext.Provider
-          value={{
-            currentUser,
-            setCurrentUser,
-            setLoading,
-            setCancelForm,
-            setShowDeleteForm,
-            setShowUserDataForm,
-          }}
-        >
-          {showFilters && <UserFilters />}
-          <FormContainer
-            showUserDataForm={showUserDataForm}
-            showDeleteForm={showDeleteForm}
-          />
-
-          {isLoading && <p>Cargando...</p>}
-          {!isLoading && <UserGrid users={paginatedUsers} error={error} />}
-        </FormsContext.Provider>
-
         {!isLoading && users && (
           <Pagination totalPages={totalPages} setLoading={setLoading} />
         )}
