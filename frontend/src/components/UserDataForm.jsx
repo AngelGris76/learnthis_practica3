@@ -9,13 +9,16 @@ import CheckBox from './CheckBox';
 import ROLE_OPTIONS from '../constants/roleOptions';
 import InputTextValidatable from './InputTextValidatable';
 import VALIDATE_VALUES from '../constants/validateValues';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import validateNewUserName from '../libs/validateNewUserName';
 import updateUserById from '../libs/api/updateUserById';
 import getLastUserId from '../libs/api/getLastUserId';
 import createUser from '../libs/api/createUser';
+import FormsContext from '../contexts/FormsContext';
 
-const UserDataForm = ({ currentUser, cancelClick, setLoading }) => {
+const UserDataForm = () => {
+  const { currentUser, setCancelForm, setLoading } = useContext(FormsContext);
+
   const {
     nameError,
     userNameError,
@@ -71,7 +74,7 @@ const UserDataForm = ({ currentUser, cancelClick, setLoading }) => {
     }
 
     setLoading();
-    cancelClick();
+    setCancelForm();
   };
 
   const anyError =
@@ -83,15 +86,11 @@ const UserDataForm = ({ currentUser, cancelClick, setLoading }) => {
 
   return (
     <form
-      className={style.formContainer}
       onSubmit={(ev) => {
         const newUser = { id: currentUser.id, name, userName, isActive, role };
         addUser(ev, newUser);
       }}
     >
-      <Button type={BUTTON_TYPE.iconCancel} clickHandler={cancelClick}>
-        X
-      </Button>
       <div className={style.inputs}>
         <InputText
           label={'nombre'}

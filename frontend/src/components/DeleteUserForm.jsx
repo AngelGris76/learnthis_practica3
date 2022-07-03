@@ -1,22 +1,26 @@
+import { useContext } from 'react';
 import BUTTON_TYPE from '../constants/buttonType';
+import FormsContext from '../contexts/FormsContext';
 import deleteUserById from '../libs/api/deleteUserById';
 import Button from './Button';
 import style from './DeleteUserForm.module.css';
 
-const DeleteUserForm = ({ currentUser, cancelClick, setLoading }) => {
+const DeleteUserForm = () => {
+  const { setCancelForm, currentUser, setLoading } = useContext(FormsContext);
+
   const deleteUser = async (id) => {
     await deleteUserById(id);
     setLoading();
-    cancelClick();
+    setCancelForm();
   };
 
   return (
-    <div className={style.formContainer}>
+    <>
       <p
         className={style.message}
       >{`¿Estás seguro que quieres eliminar al usuario ${currentUser.name}?`}</p>
       <div className={style.buttonContainer}>
-        <Button type={BUTTON_TYPE.secondary} clickHandler={cancelClick}>
+        <Button type={BUTTON_TYPE.secondary} clickHandler={setCancelForm}>
           Cancelar
         </Button>
         <Button
@@ -28,10 +32,10 @@ const DeleteUserForm = ({ currentUser, cancelClick, setLoading }) => {
           Eliminar usuario
         </Button>
       </div>
-      <Button type={BUTTON_TYPE.iconCancel} clickHandler={cancelClick}>
+      <Button type={BUTTON_TYPE.iconCancel} clickHandler={setCancelForm}>
         X
       </Button>
-    </div>
+    </>
   );
 };
 

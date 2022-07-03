@@ -1,4 +1,4 @@
-import ORDER_FILTER from '../../constants/orderFilter';
+import ORDER_FILTER from '../constants/orderFilter';
 
 const orderByAlphabetic = (users) => {
   const sortedUsers = [...users];
@@ -92,4 +92,18 @@ const getOnlyActiveUsers = (users, isActive) => {
   return users.filter((user) => user.isActive);
 };
 
-export { getOnlyActiveUsers, searchUser, orderUsers, paginateUsers };
+const getFilteredUsers = (users, filters) => {
+  let filteredUsers = getOnlyActiveUsers(users, filters.onlyActive);
+  filteredUsers = searchUser(filteredUsers, filters.searchTerm);
+  filteredUsers = orderUsers(filteredUsers, filters.sortBy);
+
+  const { paginatedUsers, totalPages } = paginateUsers(
+    filteredUsers,
+    filters.page,
+    filters.itemsPerPage
+  );
+
+  return { paginatedUsers, totalPages };
+};
+
+export default getFilteredUsers;

@@ -8,8 +8,11 @@ import CheckBox from './CheckBox';
 import style from './UserFilters.module.css';
 import { useContext } from 'react';
 import FiltersContext from '../contexts/FiltersContext';
+import FormsContext from '../contexts/FormsContext';
+import INITIAL_USER_DATA from '../constants/initialUserData';
 
-const UserFilters = ({ addUserHandler }) => {
+const UserFilters = () => {
+  const { setCurrentUser, setShowUserDataForm } = useContext(FormsContext);
   const { filters, setSortBy, setOnlyActive } = useContext(FiltersContext);
 
   const selectOptions = !filters.onlyActive
@@ -32,7 +35,13 @@ const UserFilters = ({ addUserHandler }) => {
           value={filters.onlyActive}
           setter={setOnlyActive}
         />
-        <Button type={BUTTON_TYPE.primary} clickHandler={addUserHandler}>
+        <Button
+          type={BUTTON_TYPE.primary}
+          clickHandler={() => {
+            setCurrentUser(INITIAL_USER_DATA);
+            setShowUserDataForm(true);
+          }}
+        >
           Añadir usuario
         </Button>
       </div>

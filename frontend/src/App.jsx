@@ -1,21 +1,14 @@
 import { useState } from 'react';
-import DeleteUserForm from './components/DeleteUserForm';
+import FormContainer from './components/FormContainer';
 import Pagination from './components/Pagination';
-import UserDataForm from './components/UserDataForm';
 import UserFilters from './components/UserFilters';
 import UserGrid from './components/UserGrid';
-import INITIAL_USER_DATA from './constants/initialUserData';
 import FiltersContext from './contexts/FiltersContext';
 import FormsContext from './contexts/FormsContext';
 import useFilter from './hooks/useFilters';
 import useForms from './hooks/useForms';
 import useUsers from './hooks/useUsers';
-import {
-  getOnlyActiveUsers,
-  orderUsers,
-  paginateUsers,
-  searchUser,
-} from './libs/api/filtersFunctions';
+import getFilteredUsers from './libs/filtersFunctions';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState();
@@ -38,30 +31,7 @@ const App = () => {
     setCancelForm,
   } = useForms();
 
-  const addUserHandler = () => {
-    setCurrentUser(INITIAL_USER_DATA);
-    setShowUserDataForm(true);
-  };
-
-  const editUserHandler = (newCurrentUser) => {
-    setCurrentUser(newCurrentUser);
-    setShowUserDataForm(true);
-  };
-
-  const deleteHandler = (newCurrentUser) => {
-    setCurrentUser(newCurrentUser);
-    setShowDeleteForm(true);
-  };
-
-  let filteredUsers = getOnlyActiveUsers(users, filters.onlyActive);
-  filteredUsers = searchUser(filteredUsers, filters.searchTerm);
-  filteredUsers = orderUsers(filteredUsers, filters.sortBy);
-
-  const { paginatedUsers, totalPages } = paginateUsers(
-    filteredUsers,
-    filters.page,
-    filters.itemsPerPage
-  );
+  const { paginatedUsers, totalPages } = getFilteredUsers(users, filters);
 
   const showFilters = !(showUserDataForm || showDeleteForm);
 
@@ -79,27 +49,23 @@ const App = () => {
           setItemsPerPage,
         }}
       >
-        {showFilters && <UserFilters addUserHandler={addUserHandler} />}
-        {showUserDataForm && (
-          <UserDataForm
-            cancelClick={() => {
-              setCancelForm();
-            }}
-            currentUser={currentUser}
-            setLoading={setLoading}
+        <FormsContext.Provider
+          value={{
+            currentUser,
+            setCurrentUser,
+            setLoading,
+            setCancelForm,
+            setShowDeleteForm,
+            setShowUserDataForm,
+          }}
+        >
+          {showFilters && <UserFilters />}
+          <FormContainer
+            showUserDataForm={showUserDataForm}
+            showDeleteForm={showDeleteForm}
           />
-        )}
-        {showDeleteForm && (
-          <DeleteUserForm
-            currentUser={currentUser}
-            cancelClick={() => {
-              setCancelForm();
-            }}
-            setLoading={setLoading}
-          />
-        )}
-        {isLoading && <p>Cargando...</p>}
-        <FormsContext.Provider value={{ editUserHandler, deleteHandler }}>
+
+          {isLoading && <p>Cargando...</p>}
           {!isLoading && <UserGrid users={paginatedUsers} error={error} />}
         </FormsContext.Provider>
 
