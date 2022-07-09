@@ -1,6 +1,10 @@
+import { useContext, useState } from 'react';
 import BUTTON_TYPE from '../constants/buttonType';
 import ROLE_OPTIONS from '../constants/roleOptions';
+import FormsContext from '../contexts/FormsContext';
 import useCreateFormValues from '../hooks/useCreateFormValues';
+import createUser from '../libs/api/createUser';
+import getLastUserId from '../libs/api/getLastUserId';
 import Button from './formsControls/Button';
 import CheckBox from './formsControls/CheckBox';
 import InputSelect from './formsControls/InputSelect';
@@ -10,6 +14,8 @@ import InputTextValidatable from './formsControls/InputTextValidatable';
 import style from './UserCreateForm.module.css';
 
 const UserCreateForm = () => {
+  const { setLoading, setCancelForm } = useContext(FormsContext);
+  const [creating, setCreating] = useState(false);
   const {
     name,
     userName,
@@ -24,7 +30,20 @@ const UserCreateForm = () => {
   } = useCreateFormValues();
 
   return (
-    <form>
+    <form
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        onSubmit(
+          name,
+          userName,
+          role,
+          active,
+          setLoading,
+          setCreating,
+          setCancelForm
+        );
+      }}
+    >
       <div className={style.inputs}>
         <InputText
           label='Nombre'
@@ -50,7 +69,7 @@ const UserCreateForm = () => {
         />
         <CheckBox label='¿Activo?' value={active} setter={setActive} />
         <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
-          Añadir usuario
+          {!creating ? 'Añadir usuario' : 'Grabando'}
         </Button>
       </div>
     </form>
@@ -58,3 +77,32 @@ const UserCreateForm = () => {
 };
 
 export default UserCreateForm;
+
+const onSubmit = async (
+  name,
+  userName,
+  role,
+  active,
+  setLoading,
+  setCreating,
+  setCancelForm
+) => {
+  const newUser = {
+    name: name.value,
+    userName: userName.value,
+    role,
+    isActive: active,
+  };
+
+  setCreating(true);
+  create(newUser, setLoading, setCancelForm);
+};
+
+const create = async (newUser, setLoading, setCancelForm) => {
+  const lastId = await getLastUserId();
+  const newId = lastId + 1;
+  const user = { ...newUser, id: newId };
+  await createUser(user);
+  setLoading();
+  setCancelForm();
+};

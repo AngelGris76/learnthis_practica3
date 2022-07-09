@@ -47,6 +47,7 @@ const App = () => {
         <FormContainer showForm={showForm} />
 
         {isLoading && <p>Cargando...</p>}
+        {!isLoading}
         {!isLoading && <UserGrid users={paginatedUsers} error={error} />}
       </FormsContext.Provider>
 

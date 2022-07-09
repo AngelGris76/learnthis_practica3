@@ -1,6 +1,9 @@
+import { useContext, useState } from 'react';
 import BUTTON_TYPE from '../constants/buttonType';
 import ROLE_OPTIONS from '../constants/roleOptions';
+import FormsContext from '../contexts/FormsContext';
 import useEditFormValues from '../hooks/useEditFormValues';
+import updateUserById from '../libs/api/updateUserById';
 import Button from './formsControls/Button';
 import CheckBox from './formsControls/CheckBox';
 import InputSelect from './formsControls/InputSelect';
@@ -10,6 +13,9 @@ import InputTextValidatable from './formsControls/InputTextValidatable';
 import style from './UserEditForm.module.css';
 
 const UserEditForm = ({ currentUser }) => {
+  const { setLoading, setCancelForm } = useContext(FormsContext);
+  const [updating, setUpdating] = useState(false);
+
   const {
     name,
     userName,
@@ -24,7 +30,21 @@ const UserEditForm = ({ currentUser }) => {
   } = useEditFormValues(currentUser);
 
   return (
-    <form>
+    <form
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        onSubmit(
+          currentUser.id,
+          name,
+          userName,
+          role,
+          active,
+          setLoading,
+          setUpdating,
+          setCancelForm
+        );
+      }}
+    >
       <div className={style.inputs}>
         <InputText
           label='Nombre'
@@ -50,7 +70,7 @@ const UserEditForm = ({ currentUser }) => {
         />
         <CheckBox label='¿Activo?' value={active} setter={setActive} />
         <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
-          Editar Usuario
+          {!updating ? 'Editar Usuario' : 'Actualizando'}
         </Button>
       </div>
     </form>
@@ -58,3 +78,31 @@ const UserEditForm = ({ currentUser }) => {
 };
 
 export default UserEditForm;
+
+const onSubmit = async (
+  id,
+  name,
+  userName,
+  role,
+  active,
+  setLoading,
+  setUpdating,
+  setCancelForm
+) => {
+  const updateData = {
+    name: name.value,
+    userName: userName.value,
+    role,
+    isActive: active,
+  };
+
+  setUpdating(true);
+  updateUser(id, updateData, setLoading, setCancelForm);
+};
+
+const updateUser = async (id, updateData, setLoading, setCancelForm) => {
+  await updateUserById(id, updateData);
+
+  setLoading();
+  setCancelForm();
+};

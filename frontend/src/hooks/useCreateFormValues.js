@@ -17,7 +17,7 @@ const useCreateFormValues = () => {
   const [formValues, setFormValues] = useState({
     name: { value: '', error: undefined },
     userName: { value: '', error: undefined },
-    role: ROLE_OPTIONS.TEACHER.text,
+    role: ROLE_OPTIONS.TEACHER.value,
     active: false,
     validating: undefined,
   });
