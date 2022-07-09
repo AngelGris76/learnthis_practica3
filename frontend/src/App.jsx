@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import FormContainer from './components/FormContainer';
-import Pagination from './components/Pagination';
+import UserPagination from './components/UserPagination';
 import UserFilters from './components/UserFilters';
 import UserGrid from './components/UserGrid';
 import FiltersContext from './contexts/FiltersContext';
@@ -52,7 +52,7 @@ const App = () => {
         }}
       >
         {!isLoading && users && (
-          <Pagination totalPages={totalPages} setLoading={setLoading} />
+          <UserPagination totalPages={totalPages} setLoading={setLoading} />
         )}
       </FiltersContext.Provider>
     </div>

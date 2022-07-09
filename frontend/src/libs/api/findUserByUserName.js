@@ -9,7 +9,7 @@ const findUserByUserName = async (userName) => {
     const userData = await response.json();
 
     if (!userData) {
-      return;
+      return null;
     }
 
     return userData[0];

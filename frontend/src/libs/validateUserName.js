@@ -1,13 +1,15 @@
-import VALIDATE_VALUES from '../constants/validateValues';
-
 const USER_NAME_REGEX = /^[^\d][a-z\d]{5,14}$/;
 
 const validateUserName = (userName) => {
-  if (!USER_NAME_REGEX.test(userName)) {
-    return VALIDATE_VALUES.fail;
+  if (userName.length < 6 || userName.length > 15) {
+    return 'Debe tener entre 6 y 15 caracteres';
   }
 
-  return VALIDATE_VALUES.pass;
+  if (!USER_NAME_REGEX.test(userName)) {
+    return 'Error de formato';
+  }
+
+  return false;
 };
 
 export default validateUserName;

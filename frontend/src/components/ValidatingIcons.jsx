@@ -1,4 +1,3 @@
-import VALIDATE_VALUES from '../constants/validateValues';
 import FailIcon from './icons/FailIcon';
 import PassIcon from './icons/PassIcon';
 import UpdateIcon from './icons/UpdateIcon';
@@ -13,22 +12,29 @@ const VALIDATE_ICON_STYLE = {
 const ValidatingIcons = ({ isValidating, error }) => {
   let validateIconModifier;
 
-  let showError;
+  let iconClass;
+
+  if (!error) {
+    iconClass = 'pass';
+  } else {
+    iconClass = 'fail';
+  }
 
   if (!isValidating) {
-    validateIconModifier = `${VALIDATE_ICON_STYLE[error]}`;
-    showError = error === VALIDATE_VALUES.fail;
+    validateIconModifier = `${VALIDATE_ICON_STYLE[iconClass]}`;
   } else {
     validateIconModifier = ``;
   }
 
+  if (error === undefined) {
+    return null;
+  }
+
   return (
     <span className={`${style.validateIcon} ${validateIconModifier}`}>
-      {isValidating !== VALIDATE_VALUES.initial && isValidating && (
-        <UpdateIcon />
-      )}
-      {!isValidating && !showError && <PassIcon />}
-      {!isValidating && showError && <FailIcon />}
+      {isValidating && <UpdateIcon />}
+      {isValidating === false && !error && <PassIcon />}
+      {isValidating === false && !!error && <FailIcon />}
     </span>
   );
 };

@@ -1,0 +1,14 @@
+.inputs,
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputs {
+  align-items: flex-start;
+}
+
+.controls {
+  align-items: center;
+  margin-top: 1.5rem;
+}

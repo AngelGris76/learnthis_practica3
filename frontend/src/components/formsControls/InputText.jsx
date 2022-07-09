@@ -1,12 +1,8 @@
-import VALIDATE_VALUES from '../../constants/validateValues';
 import style from './InputText.module.css';
 
 const InputText = ({ label, value, changeHandler, validateHandler, error }) => {
-  const classModifier =
-    error === VALIDATE_VALUES.fail ? `${style.inputFieldError}` : '';
+  const classModifier = error ? style.inputFieldError : '';
   const inputField = `${style.inputField} ${classModifier}`;
-
-  const showError = error === VALIDATE_VALUES.fail;
 
   return (
     <div className={style.inputContainer}>
@@ -24,7 +20,7 @@ const InputText = ({ label, value, changeHandler, validateHandler, error }) => {
           }}
         />
       </label>
-      {showError && <p className={style.errorMessage}>Error</p>}
+      {!!error && <p className={style.errorMessage}>{error}</p>}
     </div>
   );
 };

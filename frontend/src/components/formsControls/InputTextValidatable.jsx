@@ -1,5 +1,4 @@
 import ValidatingIcons from '../ValidatingIcons';
-import VALIDATE_VALUES from '../../constants/validateValues';
 import style from './InputText.module.css';
 
 const InputTextValidatable = ({
@@ -9,18 +8,7 @@ const InputTextValidatable = ({
   isValidating,
   changeHandler,
 }) => {
-  let classModifier;
-
-  let showError;
-
-  if (!isValidating) {
-    classModifier =
-      error === VALIDATE_VALUES.fail ? `${style.inputFieldError}` : '';
-    showError = error === VALIDATE_VALUES.fail;
-  } else {
-    classModifier = '';
-  }
-
+  const classModifier = error ? style.inputFieldError : '';
   const inputField = `${style.inputField} ${classModifier}`;
 
   return (
@@ -37,7 +25,7 @@ const InputTextValidatable = ({
         />
         <ValidatingIcons error={error} isValidating={isValidating} />
       </label>
-      {showError && <p className={style.errorMessage}>Error</p>}
+      {!!error && <p className={style.errorMessage}>{error}</p>}
     </div>
   );
 };

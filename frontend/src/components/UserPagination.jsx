@@ -6,9 +6,9 @@ import ArrowLeft from './icons/ArrowLeft';
 import ArrowRight from './icons/ArrowRight';
 import Button from './formsControls/Button';
 import InputSelect from './formsControls/InputSelect';
-import style from './Pagination.module.css';
+import style from './UserPagination.module.css';
 
-const Pagination = ({ totalPages, setLoading }) => {
+const UserPagination = ({ totalPages, setLoading }) => {
   const { filters, setPage, setItemsPerPage } = useContext(FiltersContext);
 
   const decButtonDisable = filters.page === 1 || totalPages === 0;
@@ -52,4 +52,4 @@ const Pagination = ({ totalPages, setLoading }) => {
   );
 };
 
-export default Pagination;
+export default UserPagination;

@@ -1,17 +1,15 @@
-import VALIDATE_VALUES from '../constants/validateValues';
-
 const NAME_REGEX = /^([^ _-]+-?_?[^ _-]+ ?)+$/i;
 
 const validateName = (name) => {
   if (name.length < 2 || name.length > 30) {
-    return VALIDATE_VALUES.fail;
+    return 'Debe tener entre 2 y 30 caracteres';
   }
 
   if (!NAME_REGEX.test(name)) {
-    return VALIDATE_VALUES.fail;
+    return 'Error de formato';
   }
 
-  return VALIDATE_VALUES.pass;
+  return false;
 };
 
 export default validateName;

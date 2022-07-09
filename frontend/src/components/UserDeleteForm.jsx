@@ -3,9 +3,9 @@ import BUTTON_TYPE from '../constants/buttonType';
 import FormsContext from '../contexts/FormsContext';
 import deleteUserById from '../libs/api/deleteUserById';
 import Button from './formsControls/Button';
-import style from './DeleteUserForm.module.css';
+import style from './UserDeleteForm.module.css';
 
-const DeleteUserForm = () => {
+const UserDeleteForm = () => {
   const { setCancelForm, currentUser, setLoading } = useContext(FormsContext);
 
   const deleteUser = async (id) => {
@@ -39,4 +39,4 @@ const DeleteUserForm = () => {
   );
 };
 
-export default DeleteUserForm;
+export default UserDeleteForm;
