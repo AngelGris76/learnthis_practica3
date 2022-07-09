@@ -1,5 +1,6 @@
 const SHOW_FORMS_VALUES = {
-  userDataForm: 'userDataForm',
+  userCreateForm: 'userCreateForm',
+  userEditForm: 'userEditForm',
   userDeleteForm: 'userDeleteForm',
   usersFilters: 'usersFilters',
 };

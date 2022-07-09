@@ -14,8 +14,13 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState();
   const { filters, filtersSetters, setPage, setItemsPerPage } = useFilter();
   const { users, error, isLoading, setLoading } = useUsers();
-  const { showForm, setShowUserDataForm, setShowDeleteForm, setCancelForm } =
-    useForms();
+  const {
+    showForm,
+    setShowUserCreateForm,
+    setShowUserEditForm,
+    setShowDeleteForm,
+    setCancelForm,
+  } = useForms();
 
   const { paginatedUsers, totalPages } = getFilteredUsers(users, filters);
 
@@ -30,7 +35,8 @@ const App = () => {
           setLoading,
           setCancelForm,
           setShowDeleteForm,
-          setShowUserDataForm,
+          setShowUserCreateForm,
+          setShowUserEditForm,
         }}
       >
         <UserFilters

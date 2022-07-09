@@ -13,7 +13,7 @@ import SHOW_FORMS_VALUES from '../constants/showFormsValues';
 
 const UserFilters = ({ filters, filtersSetters, showForm }) => {
   const { setSortBy, setOnlyActive } = filtersSetters;
-  const { setCurrentUser, setShowUserDataForm } = useContext(FormsContext);
+  const { setCurrentUser, setShowUserCreateForm } = useContext(FormsContext);
 
   const selectOptions = !filters.onlyActive
     ? ORDER_FILTER
@@ -45,7 +45,7 @@ const UserFilters = ({ filters, filtersSetters, showForm }) => {
           type={BUTTON_TYPE.primary}
           clickHandler={() => {
             setCurrentUser(INITIAL_USER_DATA);
-            setShowUserDataForm();
+            setShowUserCreateForm();
           }}
         >
           Añadir usuario

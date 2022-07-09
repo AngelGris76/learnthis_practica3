@@ -1,6 +1,6 @@
 import style from './InputText.module.css';
 
-const InputText = ({ label, value, changeHandler, validateHandler, error }) => {
+const InputText = ({ label, value, changeHandler, error }) => {
   const classModifier = error ? style.inputFieldError : '';
   const inputField = `${style.inputField} ${classModifier}`;
 
@@ -14,9 +14,6 @@ const InputText = ({ label, value, changeHandler, validateHandler, error }) => {
           value={value}
           onChange={(ev) => {
             changeHandler(ev.target.value);
-          }}
-          onBlur={() => {
-            validateHandler(value);
           }}
         />
       </label>

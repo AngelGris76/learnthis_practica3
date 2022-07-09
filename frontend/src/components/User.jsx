@@ -9,7 +9,7 @@ import PencilIcon from './icons/PencilIcon';
 import TrashIcon from './icons/TrashIcon';
 
 const User = ({ id, name, userName, isActive, role }) => {
-  const { setCurrentUser, setShowDeleteForm, setShowUserDataForm } =
+  const { setCurrentUser, setShowDeleteForm, setShowUserEditForm } =
     useContext(FormsContext);
 
   return (
@@ -25,7 +25,7 @@ const User = ({ id, name, userName, isActive, role }) => {
           type={BUTTON_TYPE.icon}
           clickHandler={() => {
             setCurrentUser({ id, name, userName, isActive, role });
-            setShowUserDataForm();
+            setShowUserEditForm();
           }}
         >
           <PencilIcon />

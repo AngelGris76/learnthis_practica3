@@ -4,8 +4,12 @@ import SHOW_FORMS_VALUES from '../constants/showFormsValues';
 const useForms = () => {
   const [showForm, setShowForm] = useState(SHOW_FORMS_VALUES.usersFilters);
 
-  const setShowUserDataForm = () => {
-    setShowForm(SHOW_FORMS_VALUES.userDataForm);
+  const setShowUserCreateForm = () => {
+    setShowForm(SHOW_FORMS_VALUES.userCreateForm);
+  };
+
+  const setShowUserEditForm = () => {
+    setShowForm(SHOW_FORMS_VALUES.userEditForm);
   };
 
   const setShowDeleteForm = () => {
@@ -18,7 +22,8 @@ const useForms = () => {
 
   return {
     showForm,
-    setShowUserDataForm,
+    setShowUserCreateForm,
+    setShowUserEditForm,
     setShowDeleteForm,
     setCancelForm,
   };
