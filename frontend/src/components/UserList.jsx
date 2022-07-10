@@ -1,12 +1,16 @@
 import User from './User';
+import style from './UserList.module.css';
 
-const UserGrid = ({ users, error }) => {
+const UserList = ({ users, error, viewMode }) => {
   if (error) {
     return <p>Error al cargar los datos</p>;
   }
   if (!users.length) {
     return <p>No hay registros</p>;
   }
+
+  const viewModifier = viewMode === 'card' ? style.userContainerCard : '';
+
   const usersRendered = users.map(({ id, name, userName, isActive, role }) => (
     <User
       id={id}
@@ -15,9 +19,14 @@ const UserGrid = ({ users, error }) => {
       userName={userName}
       isActive={isActive}
       role={role}
+      viewMode={viewMode}
     />
   ));
-  return <div>{usersRendered}</div>;
+  return (
+    <div className={`${style.userContainer} ${viewModifier}`}>
+      {usersRendered}
+    </div>
+  );
 };
 
-export default UserGrid;
+export default UserList;

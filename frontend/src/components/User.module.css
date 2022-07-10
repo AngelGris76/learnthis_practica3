@@ -9,12 +9,23 @@
   border-radius: var(--border-radius-sm);
 }
 
+.userContainerCard {
+  flex-direction: column;
+  align-items: flex-start;
+  height: auto;
+}
+
 .userInfo {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  width: 60%;
+  width: 54%;
+}
+
+.userInfoCard {
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .name {
@@ -28,4 +39,32 @@
 
 .trash {
   color: var(--btn-icon-error-color);
+}
+
+.restContainer,
+.detailContainer,
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.restContainer {
+  width: 46%;
+  justify-content: flex-end;
+}
+
+.detailContainer {
+  width: 60%;
+  justify-content: flex-start;
+}
+
+.buttonContainer {
+  gap: 0;
+}
+
+.restCard {
+  width: 100%;
+  justify-content: space-between;
 }

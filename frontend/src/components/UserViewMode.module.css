@@ -1,0 +1,27 @@
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+
+.control {
+  appearance: none;
+}
+
+.cardActive {
+  color: var(--black);
+}
+
+.cardInactive {
+  color: var(--light-gray);
+}
+
+.rowActive {
+  color: var(--black);
+}
+
+.rowInactive {
+  color: var(--light-gray);
+}

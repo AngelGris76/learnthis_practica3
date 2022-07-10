@@ -1,0 +1,9 @@
+.userContainer {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+.userContainerCard {
+  grid-template-columns: 1fr 1fr;
+}

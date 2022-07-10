@@ -1,5 +1,7 @@
 :root {
   font-size: 100%;
+  --black: black;
+  --light-gray: #cfcfcf;
   --btn-primary-color: white;
   --btn-primary-bg-color: black;
   --btn-secondary-color: black;

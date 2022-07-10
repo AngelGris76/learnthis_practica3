@@ -18,11 +18,13 @@ const getRoleValue = (role) => {
   }
 };
 
-const UserRole = ({ role }) => {
+const UserRole = ({ role, viewMode }) => {
   const roleMessage = getRoleValue(role);
 
+  const roleModifier = viewMode === 'card' ? style.roleCard : '';
+
   return (
-    <div className={`${style.role}`}>
+    <div className={`${style.role} ${roleModifier}`}>
       <span className={`${style.roleMessage} ${STYLE_CLASS[role]}`}>
         {roleMessage}
       </span>

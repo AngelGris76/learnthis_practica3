@@ -2,13 +2,13 @@ import { useState } from 'react';
 import FormContainer from './components/FormContainer';
 import UserPagination from './components/UserPagination';
 import UserFilters from './components/UserFilters';
-import UserGrid from './components/UserGrid';
 import FiltersContext from './contexts/FiltersContext';
 import FormsContext from './contexts/FormsContext';
 import useFilter from './hooks/useFilters';
 import useForms from './hooks/useForms';
 import useUsers from './hooks/useUsers';
 import getFilteredUsers from './libs/filtersFunctions';
+import ViewContainer from './components/ViewContainer';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState();
@@ -46,9 +46,11 @@ const App = () => {
         />
         <FormContainer showForm={showForm} />
 
-        {isLoading && <p>Cargando...</p>}
-        {!isLoading}
-        {!isLoading && <UserGrid users={paginatedUsers} error={error} />}
+        <ViewContainer
+          isLoading={isLoading}
+          users={paginatedUsers}
+          error={error}
+        />
       </FormsContext.Provider>
 
       <FiltersContext.Provider
