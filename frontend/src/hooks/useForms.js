@@ -16,7 +16,7 @@ const useForms = () => {
     setShowForm(SHOW_FORMS_VALUES.userDeleteForm);
   };
 
-  const setCancelForm = () => {
+  const setShowFilters = () => {
     setShowForm(SHOW_FORMS_VALUES.usersFilters);
   };
 
@@ -25,7 +25,7 @@ const useForms = () => {
     setShowUserCreateForm,
     setShowUserEditForm,
     setShowDeleteForm,
-    setCancelForm,
+    setShowFilters,
   };
 };
 

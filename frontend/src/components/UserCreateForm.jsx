@@ -14,7 +14,7 @@ import InputTextValidatable from './formsControls/InputTextValidatable';
 import style from './UserCreateForm.module.css';
 
 const UserCreateForm = () => {
-  const { setLoading, setCancelForm } = useContext(FormsContext);
+  const { setLoading, setShowFilters } = useContext(FormsContext);
   const [creating, setCreating] = useState(false);
   const {
     name,
@@ -40,7 +40,7 @@ const UserCreateForm = () => {
           active,
           setLoading,
           setCreating,
-          setCancelForm
+          setShowFilters
         );
       }}
     >
@@ -85,7 +85,7 @@ const onSubmit = async (
   active,
   setLoading,
   setCreating,
-  setCancelForm
+  setShowFilters
 ) => {
   const newUser = {
     name: name.value,
@@ -95,14 +95,14 @@ const onSubmit = async (
   };
 
   setCreating(true);
-  create(newUser, setLoading, setCancelForm);
+  create(newUser, setLoading, setShowFilters);
 };
 
-const create = async (newUser, setLoading, setCancelForm) => {
+const create = async (newUser, setLoading, setShowFilters) => {
   const lastId = await getLastUserId();
   const newId = lastId + 1;
   const user = { ...newUser, id: newId };
   await createUser(user);
   setLoading();
-  setCancelForm();
+  setShowFilters();
 };

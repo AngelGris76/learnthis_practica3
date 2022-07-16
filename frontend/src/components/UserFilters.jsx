@@ -1,19 +1,17 @@
+import { useContext } from 'react';
 import Button from './formsControls/Button';
 import InputSearch from './formsControls/InputSearch';
 import InputSelect from './formsControls/InputSelect';
+import CheckBox from './formsControls/CheckBox';
 import ORDER_FILTER from '../constants/orderFilter';
 import BUTTON_TYPE from '../constants/buttonType';
-import CheckBox from './formsControls/CheckBox';
+import SHOW_FORMS_VALUES from '../constants/showFormsValues';
+import FormsContext from '../contexts/FormsContext';
 
 import style from './UserFilters.module.css';
-import { useContext } from 'react';
-import FormsContext from '../contexts/FormsContext';
-import INITIAL_USER_DATA from '../constants/initialUserData';
-import SHOW_FORMS_VALUES from '../constants/showFormsValues';
 
 const UserFilters = ({ filters, filtersSetters, showForm }) => {
-  const { setSortBy, setOnlyActive } = filtersSetters;
-  const { setCurrentUser, setShowUserCreateForm } = useContext(FormsContext);
+  const { setShowUserCreateForm } = useContext(FormsContext);
 
   const selectOptions = !filters.onlyActive
     ? ORDER_FILTER
@@ -28,23 +26,25 @@ const UserFilters = ({ filters, filtersSetters, showForm }) => {
   return (
     <div className={style.formFilterContainer}>
       <div className={style.formFilterUp}>
-        <InputSearch filters={filters} filtersSetters={filtersSetters} />
+        <InputSearch
+          searchTerm={filters.searchTerm}
+          setSearchTerm={filtersSetters.setSearchTerm}
+        />
         <InputSelect
           options={selectOptions}
           value={filters.sortBy}
-          setter={setSortBy}
+          setter={filtersSetters.setSortBy}
         />
       </div>
       <div className={style.formFilterDown}>
         <CheckBox
           label='Mostrar sólo activos'
           value={filters.onlyActive}
-          setter={setOnlyActive}
+          setter={filtersSetters.setOnlyActive}
         />
         <Button
           type={BUTTON_TYPE.primary}
           clickHandler={() => {
-            setCurrentUser(INITIAL_USER_DATA);
             setShowUserCreateForm();
           }}
         >

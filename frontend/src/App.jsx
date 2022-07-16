@@ -2,27 +2,23 @@ import { useState } from 'react';
 import FormContainer from './components/FormContainer';
 import UserPagination from './components/UserPagination';
 import UserFilters from './components/UserFilters';
-import FiltersContext from './contexts/FiltersContext';
 import FormsContext from './contexts/FormsContext';
 import useFilter from './hooks/useFilters';
 import useForms from './hooks/useForms';
 import useUsers from './hooks/useUsers';
-import getFilteredUsers from './libs/filtersFunctions';
 import ViewContainer from './components/ViewContainer';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState();
   const { filters, filtersSetters, setPage, setItemsPerPage } = useFilter();
-  const { users, error, isLoading, setLoading } = useUsers();
+  const { users, error, totalUsers, isLoading, setLoading } = useUsers(filters);
   const {
     showForm,
     setShowUserCreateForm,
     setShowUserEditForm,
     setShowDeleteForm,
-    setCancelForm,
+    setShowFilters,
   } = useForms();
-
-  const { paginatedUsers, totalPages } = getFilteredUsers(users, filters);
 
   return (
     <div className='appContainer'>
@@ -30,10 +26,9 @@ const App = () => {
 
       <FormsContext.Provider
         value={{
-          currentUser,
           setCurrentUser,
           setLoading,
-          setCancelForm,
+          setShowFilters,
           setShowDeleteForm,
           setShowUserCreateForm,
           setShowUserEditForm,
@@ -44,26 +39,21 @@ const App = () => {
           filtersSetters={filtersSetters}
           showForm={showForm}
         />
-        <FormContainer showForm={showForm} />
+        <FormContainer showForm={showForm} currentUser={currentUser} />
 
-        <ViewContainer
-          isLoading={isLoading}
-          users={paginatedUsers}
-          error={error}
-        />
+        <ViewContainer isLoading={isLoading} users={users} error={error} />
       </FormsContext.Provider>
 
-      <FiltersContext.Provider
-        value={{
-          filters,
-          setPage,
-          setItemsPerPage,
-        }}
-      >
-        {!isLoading && users && (
-          <UserPagination totalPages={totalPages} setLoading={setLoading} />
-        )}
-      </FiltersContext.Provider>
+      {!isLoading && users && (
+        <UserPagination
+          totalUsers={totalUsers}
+          setLoading={setLoading}
+          actualPage={filters.page}
+          itemsPerPage={filters.itemsPerPage}
+          setPage={setPage}
+          setItemsPerPage={setItemsPerPage}
+        />
+      )}
     </div>
   );
 };

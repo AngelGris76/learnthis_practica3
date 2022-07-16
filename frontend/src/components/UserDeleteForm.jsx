@@ -5,13 +5,13 @@ import deleteUserById from '../libs/api/deleteUserById';
 import Button from './formsControls/Button';
 import style from './UserDeleteForm.module.css';
 
-const UserDeleteForm = () => {
-  const { setCancelForm, currentUser, setLoading } = useContext(FormsContext);
+const UserDeleteForm = ({ currentUser }) => {
+  const { setShowFilters, setLoading } = useContext(FormsContext);
 
   const deleteUser = async (id) => {
     await deleteUserById(id);
     setLoading();
-    setCancelForm();
+    setShowFilters();
   };
 
   return (
@@ -20,7 +20,7 @@ const UserDeleteForm = () => {
         className={style.message}
       >{`¿Estás seguro que quieres eliminar al usuario ${currentUser.name}?`}</p>
       <div className={style.buttonContainer}>
-        <Button type={BUTTON_TYPE.secondary} clickHandler={setCancelForm}>
+        <Button type={BUTTON_TYPE.secondary} clickHandler={setShowFilters}>
           Cancelar
         </Button>
         <Button
@@ -32,7 +32,7 @@ const UserDeleteForm = () => {
           Eliminar usuario
         </Button>
       </div>
-      <Button type={BUTTON_TYPE.iconCancel} clickHandler={setCancelForm}>
+      <Button type={BUTTON_TYPE.iconCancel} clickHandler={setShowFilters}>
         X
       </Button>
     </>

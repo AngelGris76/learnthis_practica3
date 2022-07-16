@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import style from './InputSearch.module.css';
 
-const InputSearch = ({ filters, filtersSetters }) => {
-  const { searchTerm } = filters;
-  const { setSearchTerm } = filtersSetters;
+const InputSearch = ({ searchTerm, setSearchTerm }) => {
   const [term, setTerm] = useState('');
 
   useEffect(() => {

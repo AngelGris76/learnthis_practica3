@@ -1,25 +1,30 @@
-import { useContext } from 'react';
 import BUTTON_TYPE from '../constants/buttonType';
 import ITEMS_PER_PAGE from '../constants/itemsPerPage';
-import FiltersContext from '../contexts/FiltersContext';
 import ArrowLeft from './icons/ArrowLeft';
 import ArrowRight from './icons/ArrowRight';
 import Button from './formsControls/Button';
 import InputSelect from './formsControls/InputSelect';
 import style from './UserPagination.module.css';
 
-const UserPagination = ({ totalPages, setLoading }) => {
-  const { filters, setPage, setItemsPerPage } = useContext(FiltersContext);
+const UserPagination = ({
+  totalUsers,
+  setLoading,
+  actualPage,
+  itemsPerPage,
+  setPage,
+  setItemsPerPage,
+}) => {
+  const totalPages = Math.ceil(totalUsers / itemsPerPage);
 
-  const decButtonDisable = filters.page === 1 || totalPages === 0;
-  const incButtonDisable = filters.page === totalPages || totalPages === 0;
+  const decButtonDisable = actualPage === 1 || totalPages === 0;
+  const incButtonDisable = actualPage === totalPages || totalPages === 0;
 
   return (
     <div className={style.paginationContainer}>
       <div className={style.selectContainer}>
         <InputSelect
           options={ITEMS_PER_PAGE}
-          value={filters.itemsPerPage}
+          value={itemsPerPage}
           setter={(newValue) => {
             setItemsPerPage(Number(newValue));
             setLoading();
@@ -32,17 +37,19 @@ const UserPagination = ({ totalPages, setLoading }) => {
           disabled={decButtonDisable}
           type={BUTTON_TYPE.iconFilled}
           clickHandler={() => {
-            setPage(filters.page - 1);
+            setPage(actualPage - 1);
+            setLoading();
           }}
         >
           <ArrowLeft />
         </Button>
-        <span>{`Pagina ${filters.page} de ${totalPages}`}</span>
+        <span>{`Pagina ${actualPage} de ${totalPages}`}</span>
         <Button
           disabled={incButtonDisable}
           type={BUTTON_TYPE.iconFilled}
           clickHandler={() => {
-            setPage(filters.page + 1);
+            setPage(actualPage + 1);
+            setLoading();
           }}
         >
           <ArrowRight />

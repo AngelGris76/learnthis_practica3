@@ -13,7 +13,7 @@ import InputTextValidatable from './formsControls/InputTextValidatable';
 import style from './UserEditForm.module.css';
 
 const UserEditForm = ({ currentUser }) => {
-  const { setLoading, setCancelForm } = useContext(FormsContext);
+  const { setLoading, setShowFilters } = useContext(FormsContext);
   const [updating, setUpdating] = useState(false);
 
   const {
@@ -41,7 +41,7 @@ const UserEditForm = ({ currentUser }) => {
           active,
           setLoading,
           setUpdating,
-          setCancelForm
+          setShowFilters
         );
       }}
     >
@@ -87,7 +87,7 @@ const onSubmit = async (
   active,
   setLoading,
   setUpdating,
-  setCancelForm
+  setShowFilters
 ) => {
   const updateData = {
     name: name.value,
@@ -97,12 +97,12 @@ const onSubmit = async (
   };
 
   setUpdating(true);
-  updateUser(id, updateData, setLoading, setCancelForm);
+  updateUser(id, updateData, setLoading, setShowFilters);
 };
 
-const updateUser = async (id, updateData, setLoading, setCancelForm) => {
+const updateUser = async (id, updateData, setLoading, setShowFilters) => {
   await updateUserById(id, updateData);
 
   setLoading();
-  setCancelForm();
+  setShowFilters();
 };
