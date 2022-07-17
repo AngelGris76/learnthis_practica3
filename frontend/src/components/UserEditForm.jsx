@@ -23,10 +23,7 @@ const UserEditForm = ({ currentUser }) => {
     role,
     validating,
     disabled,
-    setName,
-    setUserName,
-    setActive,
-    setRole,
+    dispatchFormValues,
   } = useEditFormValues(currentUser);
 
   return (
@@ -49,13 +46,20 @@ const UserEditForm = ({ currentUser }) => {
         <InputText
           label='Nombre'
           value={name.value}
-          changeHandler={setName}
+          changeHandler={(newName) => {
+            dispatchFormValues({ type: 'name_changed', value: newName });
+          }}
           error={name.error}
         />
         <InputTextValidatable
           label='UserName'
           value={userName.value}
-          changeHandler={setUserName}
+          changeHandler={(newUserName) => {
+            dispatchFormValues({
+              type: 'userName_changed',
+              value: newUserName,
+            });
+          }}
           error={userName.error}
           isValidating={validating}
         />
@@ -64,11 +68,17 @@ const UserEditForm = ({ currentUser }) => {
         <InputSelect
           options={ROLE_OPTIONS}
           value={role}
-          setter={(newValue) => {
-            setRole(newValue);
+          setter={(newRoleValue) => {
+            dispatchFormValues({ type: 'role_changed', value: newRoleValue });
           }}
         />
-        <CheckBox label='¿Activo?' value={active} setter={setActive} />
+        <CheckBox
+          label='¿Activo?'
+          value={active}
+          setter={(newActive) => {
+            dispatchFormValues({ type: 'isActive_changed', value: newActive });
+          }}
+        />
         <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
           {!updating ? 'Editar Usuario' : 'Actualizando'}
         </Button>
