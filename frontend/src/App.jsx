@@ -1,16 +1,21 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import FormContainer from './components/FormContainer';
 import UserPagination from './components/UserPagination';
 import UserFilters from './components/UserFilters';
 import FormsContext from './contexts/FormsContext';
-import useFilter from './hooks/useFilters';
 import useForms from './hooks/useForms';
 import useUsers from './hooks/useUsers';
 import ViewContainer from './components/ViewContainer';
+import filtersReducer from './reducers/filtersReducer';
+import INITIAL_FILTERS from './constants/initialFilters';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState();
-  const { filters, filtersSetters, setPage, setItemsPerPage } = useFilter();
+  const [filters, filtersDispatch] = useReducer(
+    filtersReducer,
+    INITIAL_FILTERS
+  );
+
   const { users, error, totalUsers, isLoading, setLoading } = useUsers(filters);
   const {
     showForm,
@@ -36,7 +41,7 @@ const App = () => {
       >
         <UserFilters
           filters={filters}
-          filtersSetters={filtersSetters}
+          dispatch={filtersDispatch}
           showForm={showForm}
         />
         <FormContainer showForm={showForm} currentUser={currentUser} />
@@ -50,8 +55,12 @@ const App = () => {
           setLoading={setLoading}
           actualPage={filters.page}
           itemsPerPage={filters.itemsPerPage}
-          setPage={setPage}
-          setItemsPerPage={setItemsPerPage}
+          setPage={(page) => {
+            filtersDispatch({ type: 'page', value: page });
+          }}
+          setItemsPerPage={(items) => {
+            filtersDispatch({ type: 'itemsPerPage', value: items });
+          }}
         />
       )}
     </div>

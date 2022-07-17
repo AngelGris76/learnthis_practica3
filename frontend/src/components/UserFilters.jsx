@@ -10,7 +10,7 @@ import FormsContext from '../contexts/FormsContext';
 
 import style from './UserFilters.module.css';
 
-const UserFilters = ({ filters, filtersSetters, showForm }) => {
+const UserFilters = ({ filters, dispatch, showForm }) => {
   const { setShowUserCreateForm } = useContext(FormsContext);
 
   const selectOptions = !filters.onlyActive
@@ -28,19 +28,25 @@ const UserFilters = ({ filters, filtersSetters, showForm }) => {
       <div className={style.formFilterUp}>
         <InputSearch
           searchTerm={filters.searchTerm}
-          setSearchTerm={filtersSetters.setSearchTerm}
+          setSearchTerm={(term) =>
+            dispatch({ type: 'searchTerm', value: term })
+          }
         />
         <InputSelect
           options={selectOptions}
           value={filters.sortBy}
-          setter={filtersSetters.setSortBy}
+          setter={(order) => {
+            dispatch({ type: 'sortBy', value: order });
+          }}
         />
       </div>
       <div className={style.formFilterDown}>
         <CheckBox
           label='Mostrar sólo activos'
           value={filters.onlyActive}
-          setter={filtersSetters.setOnlyActive}
+          setter={(onlyActive) => {
+            dispatch({ type: 'onlyActive', value: onlyActive });
+          }}
         />
         <Button
           type={BUTTON_TYPE.primary}
