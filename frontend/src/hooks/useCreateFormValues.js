@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import ROLE_OPTIONS from '../constants/roleOptions';
 import findUserByUserName from '../libs/api/findUserByUserName';
-import validateName from '../libs/validateName';
-import validateUserName from '../libs/validateUserName';
+import createFormReducer from '../reducers/createFormReducer';
 
-const asyncValidate = async (userName, setUserNameError, setValidating) => {
+const asyncValidate = async (userName, createFormDispatch) => {
   const user = await findUserByUserName(userName);
 
+  let userNameError = false;
   if (user) {
-    setUserNameError('usuario invalido');
+    userNameError = 'usuario invalido';
   }
-  setValidating(false);
+  createFormDispatch({ type: 'userName_async_error', value: userNameError });
 };
 
 const useCreateFormValues = () => {
-  const [formValues, setFormValues] = useState({
+  const [formValues, createFormDispatch] = useReducer(createFormReducer, {
     name: { value: '', error: undefined },
     userName: { value: '', error: undefined },
     role: ROLE_OPTIONS.TEACHER.value,
@@ -22,51 +22,10 @@ const useCreateFormValues = () => {
     validating: undefined,
   });
 
-  const setRole = (newRole) => {
-    setFormValues({ ...formValues, role: newRole });
-  };
-
-  const setActive = (newActive) => {
-    setFormValues({ ...formValues, active: newActive });
-  };
-
-  const setName = (newName) => {
-    const error = validateName(newName);
-    setFormValues({ ...formValues, name: { value: newName, error } });
-  };
-
-  const setUserName = (newUserName) => {
-    const error = validateUserName(newUserName);
-    const newValidating = !error;
-    setFormValues({
-      ...formValues,
-      validating: newValidating,
-      userName: { value: newUserName, error },
-    });
-  };
-
-  const setUserNameError = (newError) => {
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-      userName: { error: newError },
-    }));
-  };
-
-  const setValidating = (validatingValue) => {
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-      validating: validatingValue,
-    }));
-  };
-
   useEffect(() => {
     if (formValues.userName.value !== '' && formValues.validating) {
       const timeOut = setTimeout(() => {
-        asyncValidate(
-          formValues.userName.value,
-          setUserNameError,
-          setValidating
-        );
+        asyncValidate(formValues.userName.value, createFormDispatch);
       }, 300);
       return () => clearTimeout(timeOut);
     }
@@ -77,7 +36,7 @@ const useCreateFormValues = () => {
     formValues.userName.error !== false ||
     formValues.validating;
 
-  return { ...formValues, disabled, setRole, setActive, setName, setUserName };
+  return { ...formValues, disabled, createFormDispatch };
 };
 
 export default useCreateFormValues;

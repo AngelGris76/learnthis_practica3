@@ -23,10 +23,7 @@ const UserCreateForm = () => {
     role,
     validating,
     disabled,
-    setName,
-    setUserName,
-    setActive,
-    setRole,
+    createFormDispatch,
   } = useCreateFormValues();
 
   return (
@@ -48,13 +45,20 @@ const UserCreateForm = () => {
         <InputText
           label='Nombre'
           value={name.value}
-          changeHandler={setName}
+          changeHandler={(newName) => {
+            createFormDispatch({ type: 'name_changed', value: newName });
+          }}
           error={name.error}
         />
         <InputTextValidatable
           label='UserName'
           value={userName.value}
-          changeHandler={setUserName}
+          changeHandler={(newUserName) => {
+            createFormDispatch({
+              type: 'userName_changed',
+              value: newUserName,
+            });
+          }}
           error={userName.error}
           isValidating={validating}
         />
@@ -63,11 +67,20 @@ const UserCreateForm = () => {
         <InputSelect
           options={ROLE_OPTIONS}
           value={role}
-          setter={(newValue) => {
-            setRole(newValue);
+          setter={(newRole) => {
+            createFormDispatch({ type: 'role_changed', value: newRole });
           }}
         />
-        <CheckBox label='¿Activo?' value={active} setter={setActive} />
+        <CheckBox
+          label='¿Activo?'
+          value={active}
+          setter={(activeValue) => {
+            createFormDispatch({
+              type: 'isActive_changed',
+              value: activeValue,
+            });
+          }}
+        />
         <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
           {!creating ? 'Añadir usuario' : 'Grabando'}
         </Button>

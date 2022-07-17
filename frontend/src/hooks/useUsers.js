@@ -21,6 +21,9 @@ const useUsers = (filters) => {
   };
 
   useEffect(() => {
+    if (!users.isLoading) {
+      return;
+    }
     const controller = new AbortController();
 
     getData(controller.signal, setUsers, filters);
@@ -28,7 +31,7 @@ const useUsers = (filters) => {
     return () => {
       controller.abort();
     };
-  }, [filters]);
+  }, [filters, users]);
 
   return {
     users: users.usersData,
