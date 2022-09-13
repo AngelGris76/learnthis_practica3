@@ -30,6 +30,8 @@
   --bg-color-role-teacher: #a0ebff;
   --bg-color-role-student: #dbceff;
   --bg-color-role-other: #cfcfcf;
+
+  --color-overlay: #000000b3;
 }
 
 body {
