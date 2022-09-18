@@ -12,8 +12,8 @@ import InputTextValidatable from './formsControls/InputTextValidatable';
 
 import style from './UserEditForm.module.css';
 
-const UserEditForm = ({ currentUser }) => {
-  const { setLoading, setShowFilters } = useContext(FormsContext);
+const UserEditForm = ({ currentUser, cancelForms }) => {
+  const { setLoading } = useContext(FormsContext);
   const [updating, setUpdating] = useState(false);
 
   const {
@@ -28,6 +28,7 @@ const UserEditForm = ({ currentUser }) => {
 
   return (
     <form
+      className={style.editFormContainer}
       onSubmit={(ev) => {
         ev.preventDefault();
         onSubmit(
@@ -38,51 +39,47 @@ const UserEditForm = ({ currentUser }) => {
           active,
           setLoading,
           setUpdating,
-          setShowFilters
+          cancelForms
         );
       }}
     >
-      <div className={style.inputs}>
-        <InputText
-          label='Nombre'
-          value={name.value}
-          changeHandler={(newName) => {
-            dispatchFormValues({ type: 'name_changed', value: newName });
-          }}
-          error={name.error}
-        />
-        <InputTextValidatable
-          label='UserName'
-          value={userName.value}
-          changeHandler={(newUserName) => {
-            dispatchFormValues({
-              type: 'userName_changed',
-              value: newUserName,
-            });
-          }}
-          error={userName.error}
-          isValidating={validating}
-        />
-      </div>
-      <div className={style.controls}>
-        <InputSelect
-          options={ROLE_OPTIONS}
-          value={role}
-          setter={(newRoleValue) => {
-            dispatchFormValues({ type: 'role_changed', value: newRoleValue });
-          }}
-        />
-        <CheckBox
-          label='¿Activo?'
-          value={active}
-          setter={(newActive) => {
-            dispatchFormValues({ type: 'isActive_changed', value: newActive });
-          }}
-        />
-        <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
-          {!updating ? 'Editar Usuario' : 'Actualizando'}
-        </Button>
-      </div>
+      <InputText
+        label='Nombre'
+        value={name.value}
+        changeHandler={(newName) => {
+          dispatchFormValues({ type: 'name_changed', value: newName });
+        }}
+        error={name.error}
+      />
+      <InputTextValidatable
+        label='UserName'
+        value={userName.value}
+        changeHandler={(newUserName) => {
+          dispatchFormValues({
+            type: 'userName_changed',
+            value: newUserName,
+          });
+        }}
+        error={userName.error}
+        isValidating={validating}
+      />
+      <InputSelect
+        options={ROLE_OPTIONS}
+        value={role}
+        setter={(newRoleValue) => {
+          dispatchFormValues({ type: 'role_changed', value: newRoleValue });
+        }}
+      />
+      <CheckBox
+        label='¿Activo?'
+        value={active}
+        setter={(newActive) => {
+          dispatchFormValues({ type: 'isActive_changed', value: newActive });
+        }}
+      />
+      <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
+        {!updating ? 'Editar Usuario' : 'Actualizando'}
+      </Button>
     </form>
   );
 };
@@ -97,7 +94,7 @@ const onSubmit = async (
   active,
   setLoading,
   setUpdating,
-  setShowFilters
+  cancelForms
 ) => {
   const updateData = {
     name: name.value,
@@ -107,12 +104,12 @@ const onSubmit = async (
   };
 
   setUpdating(true);
-  updateUser(id, updateData, setLoading, setShowFilters);
+  updateUser(id, updateData, setLoading, cancelForms);
 };
 
-const updateUser = async (id, updateData, setLoading, setShowFilters) => {
+const updateUser = async (id, updateData, setLoading, cancelForms) => {
   await updateUserById(id, updateData);
 
   setLoading();
-  setShowFilters();
+  cancelForms();
 };

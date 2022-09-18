@@ -1,0 +1,20 @@
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--color-overlay);
+}
+
+.formContainer {
+  position: relative;
+  padding: 1.5rem;
+  background-color: white;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+}

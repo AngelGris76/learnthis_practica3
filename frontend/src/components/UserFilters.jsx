@@ -1,17 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Button from './formsControls/Button';
 import InputSearch from './formsControls/InputSearch';
 import InputSelect from './formsControls/InputSelect';
 import CheckBox from './formsControls/CheckBox';
 import ORDER_FILTER from '../constants/orderFilter';
 import BUTTON_TYPE from '../constants/buttonType';
-import SHOW_FORMS_VALUES from '../constants/showFormsValues';
 import FormsContext from '../contexts/FormsContext';
+import Modal from './Modal';
+import UserCreateForm from './UserCreateForm';
 
 import style from './UserFilters.module.css';
 
-const UserFilters = ({ filters, dispatch, showForm }) => {
-  const { setShowUserCreateForm } = useContext(FormsContext);
+const UserFilters = ({ filters, dispatch }) => {
+  const { setLoading } = useContext(FormsContext);
+  const [showCreateForm, setShowUserCreateForm] = useState();
 
   const selectOptions = !filters.onlyActive
     ? ORDER_FILTER
@@ -19,45 +21,61 @@ const UserFilters = ({ filters, dispatch, showForm }) => {
         ({ value }) => value !== ORDER_FILTER.ACTIVE.value
       );
 
-  if (showForm !== SHOW_FORMS_VALUES.usersFilters) {
-    return null;
-  }
-
   return (
-    <div className={style.formFilterContainer}>
-      <div className={style.formFilterUp}>
-        <InputSearch
-          searchTerm={filters.searchTerm}
-          setSearchTerm={(term) =>
-            dispatch({ type: 'searchTerm', value: term })
-          }
-        />
-        <InputSelect
-          options={selectOptions}
-          value={filters.sortBy}
-          setter={(order) => {
-            dispatch({ type: 'sortBy', value: order });
-          }}
-        />
+    <>
+      <Modal
+        cancel={() => {
+          setShowUserCreateForm(false);
+        }}
+      >
+        {showCreateForm && (
+          <UserCreateForm
+            cancelForms={() => {
+              setShowUserCreateForm(false);
+            }}
+          />
+        )}
+      </Modal>
+      <div className={style.formFilterContainer}>
+        <div className={style.formFilterUp}>
+          <InputSearch
+            searchTerm={filters.searchTerm}
+            setSearchTerm={(term) => {
+              setLoading();
+              dispatch({ type: 'searchTerm', value: term });
+            }}
+          />
+          <span>
+            <InputSelect
+              options={selectOptions}
+              value={filters.sortBy}
+              setter={(order) => {
+                setLoading();
+                dispatch({ type: 'sortBy', value: order });
+              }}
+            />
+          </span>
+        </div>
+        <div className={style.formFilterDown}>
+          <CheckBox
+            label='Mostrar sólo activos'
+            value={filters.onlyActive}
+            setter={(onlyActive) => {
+              setLoading();
+              dispatch({ type: 'onlyActive', value: onlyActive });
+            }}
+          />
+          <Button
+            type={BUTTON_TYPE.primary}
+            clickHandler={() => {
+              setShowUserCreateForm(true);
+            }}
+          >
+            Añadir usuario
+          </Button>
+        </div>
       </div>
-      <div className={style.formFilterDown}>
-        <CheckBox
-          label='Mostrar sólo activos'
-          value={filters.onlyActive}
-          setter={(onlyActive) => {
-            dispatch({ type: 'onlyActive', value: onlyActive });
-          }}
-        />
-        <Button
-          type={BUTTON_TYPE.primary}
-          clickHandler={() => {
-            setShowUserCreateForm();
-          }}
-        >
-          Añadir usuario
-        </Button>
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -22,14 +22,16 @@ const UserPagination = ({
   return (
     <div className={style.paginationContainer}>
       <div className={style.selectContainer}>
-        <InputSelect
-          options={ITEMS_PER_PAGE}
-          value={itemsPerPage}
-          setter={(newValue) => {
-            setItemsPerPage(Number(newValue));
-            setLoading();
-          }}
-        />
+        <span className={style.inputSelectContainer}>
+          <InputSelect
+            options={ITEMS_PER_PAGE}
+            value={itemsPerPage}
+            setter={(newValue) => {
+              setItemsPerPage(Number(newValue));
+              setLoading();
+            }}
+          />
+        </span>
         <span className={style.selectDescriptor}>elementos por pagina</span>
       </div>
       <div className={style.buttonsContainer}>

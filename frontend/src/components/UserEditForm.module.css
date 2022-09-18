@@ -1,14 +1,8 @@
-.inputs,
-.controls {
+.editFormContainer {
   display: flex;
-  justify-content: space-between;
-}
+  flex-direction: column;
+  gap: 1.5rem;
 
-.inputs {
-  align-items: flex-start;
-}
-
-.controls {
-  align-items: center;
-  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 360px;
 }

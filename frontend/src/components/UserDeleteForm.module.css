@@ -1,18 +1,5 @@
-.formContainer {
-  position: relative;
-  width: 100%;
-  padding: 1.5rem;
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-sm);
-}
-
-.message {
-  margin: 0;
-  margin-bottom: 1.5rem;
-}
-
-.buttonContainer {
+.deleteFormContainer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.5rem;
 }

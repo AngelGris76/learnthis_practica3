@@ -6,7 +6,15 @@
 }
 
 .selectContainer {
-  width: 37%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 40%;
+}
+
+.inputSelectContainer {
+  width: 26%;
 }
 
 .selectDescriptor {

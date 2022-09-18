@@ -13,8 +13,8 @@ import InputTextValidatable from './formsControls/InputTextValidatable';
 
 import style from './UserCreateForm.module.css';
 
-const UserCreateForm = () => {
-  const { setLoading, setShowFilters } = useContext(FormsContext);
+const UserCreateForm = ({ cancelForms }) => {
+  const { setLoading } = useContext(FormsContext);
   const [creating, setCreating] = useState(false);
   const {
     name,
@@ -28,6 +28,7 @@ const UserCreateForm = () => {
 
   return (
     <form
+      className={style.createFormContainer}
       onSubmit={(ev) => {
         ev.preventDefault();
         onSubmit(
@@ -37,54 +38,50 @@ const UserCreateForm = () => {
           active,
           setLoading,
           setCreating,
-          setShowFilters
+          cancelForms
         );
       }}
     >
-      <div className={style.inputs}>
-        <InputText
-          label='Nombre'
-          value={name.value}
-          changeHandler={(newName) => {
-            createFormDispatch({ type: 'name_changed', value: newName });
-          }}
-          error={name.error}
-        />
-        <InputTextValidatable
-          label='UserName'
-          value={userName.value}
-          changeHandler={(newUserName) => {
-            createFormDispatch({
-              type: 'userName_changed',
-              value: newUserName,
-            });
-          }}
-          error={userName.error}
-          isValidating={validating}
-        />
-      </div>
-      <div className={style.controls}>
-        <InputSelect
-          options={ROLE_OPTIONS}
-          value={role}
-          setter={(newRole) => {
-            createFormDispatch({ type: 'role_changed', value: newRole });
-          }}
-        />
-        <CheckBox
-          label='¿Activo?'
-          value={active}
-          setter={(activeValue) => {
-            createFormDispatch({
-              type: 'isActive_changed',
-              value: activeValue,
-            });
-          }}
-        />
-        <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
-          {!creating ? 'Añadir usuario' : 'Grabando'}
-        </Button>
-      </div>
+      <InputText
+        label='Nombre'
+        value={name.value}
+        changeHandler={(newName) => {
+          createFormDispatch({ type: 'name_changed', value: newName });
+        }}
+        error={name.error}
+      />
+      <InputTextValidatable
+        label='UserName'
+        value={userName.value}
+        changeHandler={(newUserName) => {
+          createFormDispatch({
+            type: 'userName_changed',
+            value: newUserName,
+          });
+        }}
+        error={userName.error}
+        isValidating={validating}
+      />
+      <InputSelect
+        options={ROLE_OPTIONS}
+        value={role}
+        setter={(newRole) => {
+          createFormDispatch({ type: 'role_changed', value: newRole });
+        }}
+      />
+      <CheckBox
+        label='¿Activo?'
+        value={active}
+        setter={(activeValue) => {
+          createFormDispatch({
+            type: 'isActive_changed',
+            value: activeValue,
+          });
+        }}
+      />
+      <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>
+        {!creating ? 'Añadir usuario' : 'Grabando'}
+      </Button>
     </form>
   );
 };
@@ -98,7 +95,7 @@ const onSubmit = async (
   active,
   setLoading,
   setCreating,
-  setShowFilters
+  cancelForms
 ) => {
   const newUser = {
     name: name.value,
@@ -108,14 +105,14 @@ const onSubmit = async (
   };
 
   setCreating(true);
-  create(newUser, setLoading, setShowFilters);
+  create(newUser, setLoading, cancelForms);
 };
 
-const create = async (newUser, setLoading, setShowFilters) => {
+const create = async (newUser, setLoading, cancelForms) => {
   const lastId = await getLastUserId();
   const newId = lastId + 1;
   const user = { ...newUser, id: newId };
   await createUser(user);
   setLoading();
-  setShowFilters();
+  cancelForms();
 };
