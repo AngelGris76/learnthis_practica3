@@ -1,3 +1,4 @@
+import VIEW_MODE from '../constants/viewMode';
 import User from './User';
 import style from './UserList.module.css';
 
@@ -9,7 +10,8 @@ const UserList = ({ users, error, viewMode }) => {
     return <p>No hay registros</p>;
   }
 
-  const viewModifier = viewMode === 'card' ? style.userContainerCard : '';
+  const viewModifier =
+    viewMode === VIEW_MODE.card ? style.userContainerCard : '';
 
   const usersRendered = users.map(
     ({ id, name, userName, isActive, role, picture }) => (

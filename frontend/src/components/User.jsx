@@ -3,6 +3,7 @@ import Button from './formsControls/Button';
 import UserRole from './UserRole';
 import UserStatus from './UserStatus';
 import BUTTON_TYPE from '../constants/buttonType';
+import VIEW_MODE from '../constants/viewMode';
 import Modal from './Modal';
 import ThreeDotsIcon from './icons/ThreeDotsIcon';
 import DropDownMenu from './DropDownMenu';
@@ -15,10 +16,11 @@ const User = ({ id, name, userName, isActive, role, picture, viewMode }) => {
   const [modalContent, setModalContent] = useState();
   const [dropDownOpened, setDropDownOpened] = useState(false);
 
-  const containerModifier = viewMode === 'card' ? style.userContainerCard : '';
-  const dataModifier = viewMode === 'card' ? style.userDataCard : '';
-  const userModifier = viewMode === 'card' ? style.userInfoCard : '';
-  const restModifier = viewMode === 'card' ? style.restCard : '';
+  const containerModifier =
+    viewMode === VIEW_MODE.card ? style.userContainerCard : '';
+  const dataModifier = viewMode === VIEW_MODE.card ? style.userDataCard : '';
+  const userModifier = viewMode === VIEW_MODE.card ? style.userInfoCard : '';
+  const restModifier = viewMode === VIEW_MODE.card ? style.restCard : '';
 
   return (
     <>

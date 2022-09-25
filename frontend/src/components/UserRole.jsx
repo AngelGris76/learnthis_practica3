@@ -1,4 +1,5 @@
 import ROLE_OPTIONS from '../constants/roleOptions';
+import VIEW_MODE from '../constants/viewMode';
 import style from './UserRole.module.css';
 
 const STYLE_CLASS = {
@@ -21,7 +22,7 @@ const getRoleValue = (role) => {
 const UserRole = ({ role, viewMode }) => {
   const roleMessage = getRoleValue(role);
 
-  const roleModifier = viewMode === 'card' ? style.roleCard : '';
+  const roleModifier = viewMode === VIEW_MODE.card ? style.roleCard : '';
 
   return (
     <div className={`${style.role} ${roleModifier}`}>
