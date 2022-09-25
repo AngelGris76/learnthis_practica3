@@ -19,7 +19,7 @@ const App = () => {
     <div className='appContainer'>
       <h1 className='appTitle'>Listado de usuarios</h1>
 
-      <FormsContext.Provider value={{ setLoading }}>
+      <FormsContext.Provider value={{ setLoading, filtersDispatch }}>
         <UserFilters filters={filters} dispatch={filtersDispatch} />
         <ViewContainer isLoading={isLoading} users={users} error={error} />
       </FormsContext.Provider>
