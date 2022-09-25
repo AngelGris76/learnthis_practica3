@@ -1,9 +1,10 @@
+import USER_FORM_OPTIONS from '../constants/userFormOptions';
 import validateName from '../libs/validateName';
 import validateUserName from '../libs/validateUserName';
 
 const createFormReducer = (state, action) => {
   switch (action.type) {
-    case 'user_changed':
+    case USER_FORM_OPTIONS.userChanged:
       return {
         id: action.value.id,
         name: { value: action.value.name, error: false },
@@ -12,18 +13,18 @@ const createFormReducer = (state, action) => {
         role: action.value.role,
       };
 
-    case 'role_changed':
+    case USER_FORM_OPTIONS.roleChanged:
       return { ...state, role: action.value };
 
-    case 'isActive_changed':
+    case USER_FORM_OPTIONS.isActiveChanged:
       return { ...state, active: action.value };
 
-    case 'name_changed': {
+    case USER_FORM_OPTIONS.nameChanged: {
       const error = validateName(action.value);
       return { ...state, name: { value: action.value, error } };
     }
 
-    case 'userName_changed': {
+    case USER_FORM_OPTIONS.userNameChanged: {
       const error = validateUserName(action.value);
       const newValidating = !error;
       return {
@@ -33,14 +34,14 @@ const createFormReducer = (state, action) => {
       };
     }
 
-    case 'userName_async_error':
+    case USER_FORM_OPTIONS.userNameAsyncError:
       return {
         ...state,
         validating: false,
         userName: { value: state.userName.value, error: action.value },
       };
 
-    case 'perform_validating':
+    case USER_FORM_OPTIONS.performValidating:
       return { ...state, validating: action.value };
 
     default:
