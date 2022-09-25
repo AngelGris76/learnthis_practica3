@@ -1,3 +1,4 @@
+import VIEW_MODE from '../constants/viewMode';
 import CardView from './icons/CardView';
 import RowView from './icons/RowView';
 import Separator from './icons/Separator';
@@ -7,7 +8,7 @@ const UserViewMode = ({ viewMode, setViewMode }) => {
   let cardModifier;
   let rowModifier;
 
-  if (viewMode === 'row') {
+  if (viewMode === VIEW_MODE.row) {
     rowModifier = style.rowActive;
     cardModifier = style.cardInactive;
   } else {
@@ -23,9 +24,9 @@ const UserViewMode = ({ viewMode, setViewMode }) => {
           className={style.control}
           type='radio'
           name='viewmode'
-          checked={viewMode === 'card'}
+          checked={viewMode === VIEW_MODE.card}
           onChange={() => {
-            setViewMode('card');
+            setViewMode(VIEW_MODE.card);
           }}
         />
       </label>
@@ -36,9 +37,9 @@ const UserViewMode = ({ viewMode, setViewMode }) => {
           className={style.control}
           type='radio'
           name='viewmode'
-          checked={viewMode === 'row'}
+          checked={viewMode === VIEW_MODE.row}
           onChange={() => {
-            setViewMode('row');
+            setViewMode(VIEW_MODE.row);
           }}
         />
       </label>
