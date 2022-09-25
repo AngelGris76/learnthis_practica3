@@ -1,4 +1,10 @@
 import { useContext, useState } from 'react';
+import {
+  isActiveChanged,
+  nameChanged,
+  roleChanged,
+  userNameChanged,
+} from '../actions/userFormActionsBuilder';
 import BUTTON_TYPE from '../constants/buttonType';
 import ROLE_OPTIONS from '../constants/roleOptions';
 import FormsContext from '../contexts/FormsContext';
@@ -47,7 +53,7 @@ const UserEditForm = ({ currentUser, cancelForms }) => {
         label='Nombre'
         value={name.value}
         changeHandler={(newName) => {
-          dispatchFormValues({ type: 'name_changed', value: newName });
+          dispatchFormValues(nameChanged(newName));
         }}
         error={name.error}
       />
@@ -55,10 +61,7 @@ const UserEditForm = ({ currentUser, cancelForms }) => {
         label='UserName'
         value={userName.value}
         changeHandler={(newUserName) => {
-          dispatchFormValues({
-            type: 'userName_changed',
-            value: newUserName,
-          });
+          dispatchFormValues(userNameChanged(newUserName));
         }}
         error={userName.error}
         isValidating={validating}
@@ -67,14 +70,14 @@ const UserEditForm = ({ currentUser, cancelForms }) => {
         options={ROLE_OPTIONS}
         value={role}
         setter={(newRoleValue) => {
-          dispatchFormValues({ type: 'role_changed', value: newRoleValue });
+          dispatchFormValues(roleChanged(newRoleValue));
         }}
       />
       <CheckBox
         label='¿Activo?'
         value={active}
         setter={(newActive) => {
-          dispatchFormValues({ type: 'isActive_changed', value: newActive });
+          dispatchFormValues(isActiveChanged(newActive));
         }}
       />
       <Button type={BUTTON_TYPE.primarySubmit} disabled={disabled}>

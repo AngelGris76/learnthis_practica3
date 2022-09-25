@@ -1,4 +1,8 @@
 import { useEffect, useReducer } from 'react';
+import {
+  userChanged,
+  userNameAsyncError,
+} from '../actions/userFormActionsBuilder';
 import findUserByUserName from '../libs/api/findUserByUserName';
 import editFormReducer from '../reducers/editFormsReducer';
 
@@ -9,7 +13,8 @@ const asyncValidate = async (userName, oldId, dispatchFormValues) => {
   if (user && user.id !== oldId) {
     errorValue = 'Invalid UserName';
   }
-  dispatchFormValues({ type: 'userName_async_error', value: errorValue });
+  // dispatchFormValues({ type: 'userName_async_error', value: errorValue });
+  dispatchFormValues(userNameAsyncError(errorValue));
 };
 
 const useEditFormValues = (currentUser) => {
@@ -23,7 +28,8 @@ const useEditFormValues = (currentUser) => {
 
   useEffect(() => {
     if (formValues.id !== currentUser.id) {
-      dispatchFormValues({ type: 'user_changed', value: currentUser });
+      // dispatchFormValues({ type: 'user_changed', value: currentUser });
+      dispatchFormValues(userChanged(currentUser));
     }
   }, [formValues, currentUser]);
 
