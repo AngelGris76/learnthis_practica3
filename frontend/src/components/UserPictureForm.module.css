@@ -1,0 +1,57 @@
+.editPhotoForm {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 20rem;
+}
+
+.photoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+
+  background-color: var(--bg-color-role-other);
+  border-radius: 50%;
+}
+
+.photoContainer,
+.description {
+  align-self: center;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+}
+
+.inputContainer {
+  position: absolute;
+  top: 4.5rem;
+  right: 6.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  aspect-ratio: 1 / 1;
+
+  color: white;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.inputFile {
+  display: block;
+  width: 0;
+}
+
+.error {
+  color: var(--color-inactive);
+}
+
+.success {
+  color: var(--color-active);
+}
