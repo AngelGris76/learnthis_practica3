@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import { userNameAsyncError } from '../actions/userFormActionsBuilder';
 import ROLE_OPTIONS from '../constants/roleOptions';
 import findUserByUserName from '../libs/api/findUserByUserName';
 import createFormReducer from '../reducers/createFormReducer';
@@ -10,7 +11,8 @@ const asyncValidate = async (userName, createFormDispatch) => {
   if (user) {
     userNameError = 'usuario invalido';
   }
-  createFormDispatch({ type: 'userName_async_error', value: userNameError });
+  // createFormDispatch({ type: 'userName_async_error', value: userNameError });
+  createFormDispatch(userNameAsyncError(userNameError));
 };
 
 const useCreateFormValues = () => {
