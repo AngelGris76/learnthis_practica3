@@ -1,12 +1,5 @@
+import FILTERS_OPTIONS from '../constants/filterOptions';
 import ORDER_FILTER from '../constants/orderFilter';
-
-const FILTERS_OPTIONS = {
-  searchTerm: 'searchTerm',
-  sortBy: 'sortBy',
-  onlyActive: 'onlyActive',
-  page: 'page',
-  itemsPerPage: 'itemsPerPage',
-};
 
 const filtersReducer = (state, action) => {
   switch (action.type) {

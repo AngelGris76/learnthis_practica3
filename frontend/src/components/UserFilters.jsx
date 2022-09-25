@@ -1,4 +1,9 @@
 import { useContext, useState } from 'react';
+import {
+  onlyActiveChanged,
+  searchTermChanged,
+  sortByChanged,
+} from '../actions/createFormActionsBuilder';
 import Button from './formsControls/Button';
 import InputSearch from './formsControls/InputSearch';
 import InputSelect from './formsControls/InputSelect';
@@ -42,7 +47,7 @@ const UserFilters = ({ filters, dispatch }) => {
             searchTerm={filters.searchTerm}
             setSearchTerm={(term) => {
               setLoading();
-              dispatch({ type: 'searchTerm', value: term });
+              dispatch(searchTermChanged(term));
             }}
           />
           <span>
@@ -51,7 +56,7 @@ const UserFilters = ({ filters, dispatch }) => {
               value={filters.sortBy}
               setter={(order) => {
                 setLoading();
-                dispatch({ type: 'sortBy', value: order });
+                dispatch(sortByChanged(order));
               }}
             />
           </span>
@@ -62,7 +67,7 @@ const UserFilters = ({ filters, dispatch }) => {
             value={filters.onlyActive}
             setter={(onlyActive) => {
               setLoading();
-              dispatch({ type: 'onlyActive', value: onlyActive });
+              dispatch(onlyActiveChanged(onlyActive));
             }}
           />
           <Button

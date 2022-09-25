@@ -6,6 +6,10 @@ import useUsers from './hooks/useUsers';
 import ViewContainer from './components/ViewContainer';
 import filtersReducer from './reducers/filtersReducer';
 import INITIAL_FILTERS from './constants/initialFilters';
+import {
+  itemsPerPageChanged,
+  pageChanged,
+} from './actions/createFormActionsBuilder';
 
 const App = () => {
   const [filters, filtersDispatch] = useReducer(
@@ -31,10 +35,10 @@ const App = () => {
           actualPage={filters.page}
           itemsPerPage={filters.itemsPerPage}
           setPage={(page) => {
-            filtersDispatch({ type: 'page', value: page });
+            filtersDispatch(pageChanged(page));
           }}
           setItemsPerPage={(items) => {
-            filtersDispatch({ type: 'itemsPerPage', value: items });
+            filtersDispatch(itemsPerPageChanged(items));
           }}
         />
       )}
