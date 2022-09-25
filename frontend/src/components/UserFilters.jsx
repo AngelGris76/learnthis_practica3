@@ -3,7 +3,7 @@ import {
   onlyActiveChanged,
   searchTermChanged,
   sortByChanged,
-} from '../actions/createFormActionsBuilder';
+} from '../actions/filtersFormActionsBuilder';
 import Button from './formsControls/Button';
 import InputSearch from './formsControls/InputSearch';
 import InputSelect from './formsControls/InputSelect';

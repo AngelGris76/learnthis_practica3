@@ -9,7 +9,7 @@ import INITIAL_FILTERS from './constants/initialFilters';
 import {
   itemsPerPageChanged,
   pageChanged,
-} from './actions/createFormActionsBuilder';
+} from './actions/filtersFormActionsBuilder';
 
 const App = () => {
   const [filters, filtersDispatch] = useReducer(
