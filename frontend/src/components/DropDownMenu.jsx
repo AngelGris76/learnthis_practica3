@@ -5,7 +5,7 @@ import TrashIcon from './icons/TrashIcon';
 import UserDeleteForm from './UserDeleteForm';
 import UserEditForm from './UserEditForm';
 import style from './DropDownMenu.module.css';
-import UserEditPhotoForm from './UserEditPhotoForm';
+import UserPictureForm from './UserPictureForm';
 
 const DropDownMenu = ({ setDropDownOpened, setModalContent, user }) => {
   const dropDownReference = useRef(null);
@@ -44,7 +44,7 @@ const DropDownMenu = ({ setDropDownOpened, setModalContent, user }) => {
         className={style.dropDownMenuItem}
         onClick={() => {
           setModalContent(
-            <UserEditPhotoForm
+            <UserPictureForm
               cancelForms={() => setModalContent()}
               currentUser={user}
             />
