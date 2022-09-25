@@ -1,3 +1,5 @@
+import ORDER_FILTER from '../constants/orderFilter';
+
 const FILTERS_OPTIONS = {
   searchTerm: 'searchTerm',
   sortBy: 'sortBy',
@@ -14,7 +16,7 @@ const filtersReducer = (state, action) => {
           ...state,
           page: 1,
           onlyActive: action.value,
-          sortBy: 'default',
+          sortBy: ORDER_FILTER.DEFAULT.value,
         };
       }
       return { ...state, page: 1, onlyActive: action.value };
