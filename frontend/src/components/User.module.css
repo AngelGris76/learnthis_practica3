@@ -1,4 +1,5 @@
 .userContainer {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -15,17 +16,43 @@
   height: auto;
 }
 
+.userData {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: calc(54% + 5rem);
+}
+
+.userDataCard {
+  width: 100%;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: gray;
+  border-radius: 50%;
+
+  overflow: hidden;
+}
+
+.avatar {
+  width: 100%;
+}
+
 .userInfo {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  width: 54%;
 }
 
 .userInfoCard {
-  width: 100%;
-  margin-bottom: 1rem;
+  width: calc(100% - 4rem);
 }
 
 .name {

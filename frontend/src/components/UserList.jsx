@@ -11,17 +11,20 @@ const UserList = ({ users, error, viewMode }) => {
 
   const viewModifier = viewMode === 'card' ? style.userContainerCard : '';
 
-  const usersRendered = users.map(({ id, name, userName, isActive, role }) => (
-    <User
-      id={id}
-      key={id}
-      name={name}
-      userName={userName}
-      isActive={isActive}
-      role={role}
-      viewMode={viewMode}
-    />
-  ));
+  const usersRendered = users.map(
+    ({ id, name, userName, isActive, role, picture }) => (
+      <User
+        id={id}
+        key={id}
+        name={name}
+        userName={userName}
+        isActive={isActive}
+        role={role}
+        picture={picture}
+        viewMode={viewMode}
+      />
+    )
+  );
   return (
     <div className={`${style.userContainer} ${viewModifier}`}>
       {usersRendered}
