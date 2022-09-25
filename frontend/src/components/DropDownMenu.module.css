@@ -1,0 +1,28 @@
+.dropDownMenu {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  width: 176px;
+  z-index: 3;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  background-color: white;
+
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  list-style: none;
+}
+
+.dropDownMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.dropDownMenuItem:hover {
+  background-color: var(--bg-color-role-other);
+}
