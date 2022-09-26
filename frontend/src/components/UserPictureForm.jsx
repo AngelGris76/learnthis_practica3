@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import FormsContext from '../contexts/FormsContext';
 import usePicture from '../hooks/usePicture';
+import { dispatchErrorAlert, dispatchSuccesAlert } from '../libs/alertEvent';
 import updateUserById from '../libs/api/updateUserById';
 import fileToDataURL from '../libs/fileToDataURL';
 import Button from './formsControls/Button';
@@ -83,9 +84,13 @@ const handleSubmit = async (
   filtersDispatch
 ) => {
   ev.preventDefault();
-  await updateUserById(user.id, { picture: newData });
+  const { error } = await updateUserById(user.id, { picture: newData });
+  if (error) dispatchErrorAlert('Error al modificar usuario');
+  else {
+    dispatchSuccesAlert('Usuario modificado con exito');
+    setLoading();
+  }
   cancelForms();
-  setLoading();
   filtersDispatch({ type: 'page', value: 1 });
 };
 

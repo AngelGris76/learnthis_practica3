@@ -9,6 +9,7 @@ import BUTTON_TYPE from '../constants/buttonType';
 import ROLE_OPTIONS from '../constants/roleOptions';
 import FormsContext from '../contexts/FormsContext';
 import useCreateFormValues from '../hooks/useCreateFormValues';
+import { dispatchErrorAlert, dispatchSuccesAlert } from '../libs/alertEvent';
 import createUser from '../libs/api/createUser';
 import getLastUserId from '../libs/api/getLastUserId';
 import Button from './formsControls/Button';
@@ -112,7 +113,11 @@ const create = async (newUser, setLoading, cancelForms) => {
   const lastId = await getLastUserId();
   const newId = lastId + 1;
   const user = { ...newUser, id: newId };
-  await createUser(user);
-  setLoading();
+  const error = await createUser(user);
+  if (error) dispatchErrorAlert('Error al crear usuario');
+  else {
+    dispatchSuccesAlert('Usuario creado con exito');
+    setLoading();
+  }
   cancelForms();
 };

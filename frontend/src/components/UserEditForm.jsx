@@ -9,6 +9,7 @@ import BUTTON_TYPE from '../constants/buttonType';
 import ROLE_OPTIONS from '../constants/roleOptions';
 import FormsContext from '../contexts/FormsContext';
 import useEditFormValues from '../hooks/useEditFormValues';
+import { dispatchErrorAlert, dispatchSuccesAlert } from '../libs/alertEvent';
 import updateUserById from '../libs/api/updateUserById';
 import Button from './formsControls/Button';
 import CheckBox from './formsControls/CheckBox';
@@ -111,8 +112,13 @@ const onSubmit = async (
 };
 
 const updateUser = async (id, updateData, setLoading, cancelForms) => {
-  await updateUserById(id, updateData);
+  const { error } = await updateUserById(id, updateData);
 
-  setLoading();
+  if (error) dispatchErrorAlert('Error al modificar usuario');
+  else {
+    dispatchSuccesAlert('Usuario modificado con exito');
+    setLoading();
+  }
+
   cancelForms();
 };
