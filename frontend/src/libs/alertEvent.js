@@ -2,8 +2,11 @@ import messageType from '../constants/messageType';
 
 const EVENT_NAME = 'alert';
 
-const alertSuscribe = (handler) => {
+const alertSuscribe = (callback) => {
+  const handler = (ev) => callback(ev.detail);
+
   document.addEventListener(EVENT_NAME, handler);
+  return handler;
 };
 
 const alertUnsuscribe = (handler) => {

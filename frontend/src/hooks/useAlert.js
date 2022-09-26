@@ -5,11 +5,9 @@ const useAlert = () => {
   const [alert, setAlert] = useState();
 
   useEffect(() => {
-    const handleMessage = (ev) => {
-      setAlert(ev.detail);
-    };
+    const callbackFunction = (message) => setAlert(message);
+    const handleMessage = alertSuscribe(callbackFunction);
 
-    alertSuscribe(handleMessage);
     return () => alertUnsuscribe(handleMessage);
   }, []);
 
