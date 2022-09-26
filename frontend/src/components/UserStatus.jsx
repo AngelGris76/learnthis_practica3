@@ -10,7 +10,7 @@ const UserStatus = ({ isActive }) => {
 
   return (
     <div className={`${style.statusContainer} ${statusModifier}`}>
-      <Icon />
+      <Icon width='1.5rem' />
       <p className={style.statusMessage}>{message}</p>
     </div>
   );
