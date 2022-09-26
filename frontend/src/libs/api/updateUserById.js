@@ -7,14 +7,15 @@ const updateUserById = async (id, newData) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newData),
     });
+
     if (!response.ok) {
       throw new Error('No se pudo actualizar');
     }
 
-    const data = response.json();
+    const data = await response.json();
     return data;
   } catch (err) {
-    return err;
+    return { error: true };
   }
 };
 

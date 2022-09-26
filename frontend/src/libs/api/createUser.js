@@ -9,10 +9,10 @@ const createUser = async (userData) => {
     });
 
     if (!response.ok) {
-      throw new Error('No se pudo crear el usuario');
+      throw new Error('Error al crear el usuario');
     }
   } catch (err) {
-    return err;
+    return { error: err.message };
   }
 };
 

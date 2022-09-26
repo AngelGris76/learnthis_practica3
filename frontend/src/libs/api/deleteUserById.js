@@ -10,10 +10,10 @@ const deleteUserById = async (id) => {
     if (!response.ok) {
       throw new Error('El usuario no existe');
     }
-
-    return;
+    const data = await response.json();
+    return { data };
   } catch (err) {
-    return err;
+    return { error: err.message };
   }
 };
 
