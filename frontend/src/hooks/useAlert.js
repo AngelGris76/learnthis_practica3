@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { alertSuscribe, alertUnsuscribe } from '../libs/alertEvent';
 
 const useAlert = () => {
   const [alert, setAlert] = useState();
@@ -7,8 +8,9 @@ const useAlert = () => {
     const handleMessage = (ev) => {
       setAlert(ev.detail);
     };
-    document.addEventListener('alert', handleMessage);
-    return () => document.removeEventListener('alert', handleMessage);
+
+    alertSuscribe(handleMessage);
+    return () => alertUnsuscribe(handleMessage);
   }, []);
 
   useEffect(() => {
