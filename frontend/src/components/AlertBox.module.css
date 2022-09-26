@@ -1,0 +1,19 @@
+.messageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 2.25rem;
+
+  color: white;
+  border-radius: var(--border-radius-md);
+}
+
+.success {
+  background-color: var(--bg-color-success);
+}
+
+.error {
+  background-color: var(--bg-color-error);
+}
