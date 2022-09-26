@@ -30,6 +30,8 @@
   --bg-color-role-teacher: #a0ebff;
   --bg-color-role-student: #dbceff;
   --bg-color-role-other: #cfcfcf;
+  --bg-color-success: #13b176;
+  --bg-color-error: #ce3131;
 
   --color-overlay: #000000b3;
 }
@@ -47,5 +49,4 @@ body {
 
 .appTitle {
   text-align: center;
-  margin-bottom: 5rem;
 }
