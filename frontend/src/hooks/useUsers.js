@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import INITIAL_USERS_VALUE from '../constants/initialUsersValue';
+import { dispatchErrorAlert } from '../libs/alertEvent';
 import getAllUser from '../libs/api/getAllUser';
 
 const getData = async (signal, setUsers, filters) => {
   const { error, users, totalUsers } = await getAllUser(signal, filters);
 
   if (error) {
-    return setUsers({ usersData: '', error, isLoading: false, totalUsers: 0 });
+    dispatchErrorAlert('Error al cargar usuarios');
+    setUsers({ usersData: '', error, isLoading: false, totalUsers: 0 });
+    return;
   }
 
   setUsers({ usersData: users, error: false, isLoading: false, totalUsers });
